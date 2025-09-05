@@ -1,3 +1,23 @@
+/* Variáveis de tema */
+:root {
+    --font-family: 'Segoe UI', Arial, sans-serif;
+    --line-height: 1.7;
+    --background-color: #f5f6fa;
+    --text-color: #222;
+    --header-footer-background: #e4e4e4;
+    --link-color: #0078d7;
+    --card-background: #fff;
+    --card-shadow: 0 0 10px rgba(0,0,0,0.08);
+
+    /* Dark mode */
+    --dark-background-color: #181a1b;
+    --dark-text-color: #e4e6eb;
+    --dark-header-footer-background: #23272a;
+    --dark-link-color: #4aa8ff;
+    --dark-card-background: #23272a;
+    --dark-card-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
 /* Reset básico */
 * {
     margin: 0;
@@ -9,9 +29,16 @@
 button {
     all: unset;
     display: inline-block;
-    padding: 10px 20px;
+    padding: 10px 24px;
     font-size: 16px;
     cursor: pointer;
+    border-radius: 6px;
+    background: var(--link-color);
+    color: #fff;
+    transition: background 0.2s;
+}
+button:hover {
+    background: #005fa3;
 }
 
 /* Estilo global */
@@ -20,26 +47,31 @@ body {
     line-height: var(--line-height);
     background-color: var(--background-color);
     color: var(--text-color);
-    padding: 20px;
+    padding: 24px;
+    transition: background 0.3s, color 0.3s;
 }
 
 /* Estilo para o cabeçalho */
 header {
     text-align: center;
-    margin-bottom: 20px;
-    font-family: Arial, sans-serif;
+    margin-bottom: 24px;
+    font-family: var(--font-family);
     line-height: 1.6;
-    background-color: #e4e4e4;
+    background-color: var(--header-footer-background);
+    padding: 24px 0;
+    border-radius: 8px;
+    transition: background 0.3s;
 }
 
 header h1 {
-    font-size: 2.5em;
+    font-size: 2.7em;
     margin-bottom: 10px;
+    font-weight: 700;
 }
 
 header p {
     font-size: 1.2em;
-    color: #d6d6d6;
+    color: #555;
 }
 
 /* Estilo para a navegação */
@@ -47,25 +79,28 @@ nav ul {
     list-style: none;
     display: flex;
     justify-content: center;
-    margin-bottom: 20px;
-}
-
-nav ul li {
-    margin: 0 10px;
+    margin-bottom: 24px;
+    gap: 16px;
 }
 
 nav ul li a {
     text-decoration: none;
-    color: var(--text-color);
-    font-weight: bold;
+    color: var(--link-color);
+    font-weight: 600;
     display: flex;
     align-items: center;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
+}
+nav ul li a:hover {
+    background: #e4e4e4;
 }
 
 nav ul li a img {
     width: 20px;
     height: 20px;
-    margin-right: 5px;
+    margin-right: 8px;
 }
 
 /* Estilo para o conteúdo principal */
@@ -73,16 +108,18 @@ main {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    gap: 20px;
 }
 
 main section {
-    background: #fff;
-    padding: 20px;
-    margin: 10px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: var(--card-background);
+    padding: 24px;
+    margin: 10px 0;
+    border-radius: 10px;
+    box-shadow: var(--card-shadow);
     width: 45%;
     text-align: center;
+    transition: background 0.3s, box-shadow 0.3s;
 }
 
 main section img {
@@ -93,23 +130,49 @@ main section img {
 /* Estilo para o rodapé */
 footer {
     text-align: center;
-    margin-top: 20px;
+    margin-top: 32px;
+    background: var(--header-footer-background);
+    padding: 16px 0;
+    border-radius: 8px;
+    transition: background 0.3s;
 }
 
 footer p {
-    font-size: 1.2em;
+    font-size: 1.1em;
 }
 
-/* Modo escuro */
+/* Tema escuro */
 body.dark-mode {
     background-color: var(--dark-background-color);
     color: var(--dark-text-color);
 }
 
-header, nav, footer {
-    background-color: var(--header-footer-background);
+body.dark-mode header,
+body.dark-mode nav,
+body.dark-mode footer {
+    background-color: var(--dark-header-footer-background);
 }
 
-a {
-    color: var(--link-color);
+body.dark-mode nav ul li a {
+    color: var(--dark-link-color);
+}
+body.dark-mode nav ul li a:hover {
+    background: #222;
+}
+
+body.dark-mode main section {
+    background: var(--dark-card-background);
+    box-shadow: var(--dark-card-shadow);
+}
+
+body.dark-mode a {
+    color: var(--dark-link-color);
+}
+
+body.dark-mode button {
+    background: var(--dark-link-color);
+    color: #fff;
+}
+body.dark-mode button:hover {
+    background: #357ab8;
 }

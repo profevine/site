@@ -5,22 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página pessoal do Professor Vine</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="alternate" type="application/rss+xml" href="https://vin3.top/rss.xml" title="Últimas do Vin3">
+    <link rel="alternate" type="application/rss+xml" href="https://profevine.com.br/#" title="Últimas do Vin3">
 </head>
-<body>
+<body class="dark-mode">
+    <button id="toggle-dark-mode" style="position: fixed; top: 24px; right: 24px; z-index: 1000;">
+        🌙 Modo Escuro
+    </button>
     <header>
         <h1>Professor Vine</h1>
-        <p><a href="https://profevine.xyz">https://profevine.xyz</a></p>
+        <p><a href="https://profevine.com.br">https://profevine.com.br</a></p>
     </header>
     <nav>
         <ul>
+            <li><a href="https://discord.gg/Ygf9PDWQ"><img src="images/discord.svg" alt="Discord"> Discord</a></li>
             <li><a href="https://youtube.com/lordehenry"><img src="images/youtube.svg" alt="YouTube"> YouTube</a></li>
             <li><a href="https://twitch.tv/profevine"><img src="images/twitch-logo.png" alt="Twitch"> Twitch</a></li>
             <li><a href="https://gitlab.com/lordehenry"><img src="images/gitlab.svg" alt="GitLab"> GitLab</a></li>
-            <li><a href="https://github.com/lordehenry"><img src="images/git.svg" alt="GitHub"> GitHub</a></li>
-            <li><a href="https://vin3.top/emailme.html">Email</a></li>
-            <li><a href="https://vin3.top/blogindex.html">Blog</a></li>
-            <li><a href="https://vin3.top/rss.xml">RSS</a></li>
+            <li><a href="https://github.com/profevine"><img src="images/git.svg" alt="GitHub"> GitHub</a></li>
+
         </ul>
     </nav>
     <main>
@@ -38,6 +40,16 @@
         <section>
             <img src="images/letras.jpg" alt="Letras">
             <h2>Graduado em Letras Licenciatura</h2>
+            <p>Pela Universidade <a href="http://uninter.com">Uninter</a>, em 2024.</p>
+        </section>
+        <section>
+            <img src="images/geografia.png" alt="Letras">
+            <h2>Acadêmico de Geografia Licenciatura</h2>
+            <p>Pela Universidade <a href="http://uninter.com">Uninter</a>, em 2024.</p>
+        </section>
+        <section>
+            <img src="images/historia.png" alt="Letras">
+            <h2>Graduado em História Licenciatura</h2>
             <p>Pela Universidade <a href="http://uninter.com">Uninter</a>, em 2024.</p>
         </section>
         <section>
@@ -61,9 +73,18 @@
     </footer>
     <script>
         const toggleButton = document.getElementById('toggle-dark-mode');
+        function updateButton() {
+            if (document.body.classList.contains('dark-mode')) {
+                toggleButton.textContent = '☀️ Modo Claro';
+            } else {
+                toggleButton.textContent = '🌙 Modo Escuro';
+            }
+        }
         toggleButton.addEventListener('click', () => {
             document.body.classList.toggle('dark-mode');
+            updateButton();
         });
+        updateButton();
     </script>
 </body>
 </html>
