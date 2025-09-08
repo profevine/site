@@ -1,3 +1,28 @@
+@media (max-width: 700px) {
+    .profile-section {
+        padding: 12px;
+        box-shadow: 0 0 16px 2px #00ffe7a0, 0 2px 8px rgba(0,0,0,0.12);
+        border-radius: 12px;
+        width: 100%;
+    }
+    .profile-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        gap: 10px;
+        max-width: 98vw;
+    }
+    .profile-photo img {
+        width: 90vw;
+        max-width: 180px;
+        height: auto;
+        border-radius: 16px;
+        object-position: center 20%;
+    }
+    .profile-text h2 {
+        font-size: 1.1rem;
+    }
+}
 /* Variáveis de tema */
 :root {
     --font-family: 'Segoe UI', Arial, sans-serif;
