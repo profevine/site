@@ -203,8 +203,8 @@ footer p {
 
 /* Tema escuro */
 body.dark-mode {
-    background-color: var(--dark-background-color);
-    color: var(--dark-text-color);
+    background: #181818;
+    color: #f2f2f2;
 }
 
 body.dark-mode header,
@@ -265,4 +265,77 @@ body.dark-mode button#toggle-dark-mode:hover {
     background: #23272a;
     color: var(--dark-link-color);
     border: 1px solid var(--dark-link-color);
+}
+
+/* Estilo para a seção de perfil */
+.profile-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 40px 0;
+}
+
+.profile-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: rgba(30,30,30,0.03);
+    border-radius: 16px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+    padding: 32px;
+    gap: 32px;
+    max-width: 800px;
+    width: 100%;
+}
+
+.profile-photo img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 24px; /* Cantos arredondados */
+    border: 2px solid hsl(0, 0%, 60%);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+}
+
+.profile-text {
+    flex: 1;
+    font-size: 1.15rem;
+    color: #222;
+}
+
+.profile-text h2 {
+    margin-top: 0;
+    margin-bottom: 12px;
+    font-size: 2rem;
+    color: #333;
+}
+
+@media (max-width: 700px) {
+    .profile-container {
+        flex-direction: column;
+        align-items: center;
+        padding: 16px;
+        gap: 16px;
+    }
+    .profile-photo img {
+        width: 120px;
+        height: 120px;
+        border-radius: 16px;
+    }
+    .profile-text h2 {
+        font-size: 1.3rem;
+    }
+}
+
+body.dark-mode .profile-container {
+    background: rgba(40,40,40,0.7);
+    box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+}
+
+body.dark-mode .profile-text {
+    color: #f2f2f2;
+}
+
+body.dark-mode .profile-text h2 {
+    color: #fff;
 }
