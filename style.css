@@ -289,8 +289,8 @@ body.dark-mode button#toggle-dark-mode:hover {
 }
 
 .profile-photo img {
-    width: 180px;
-    height: 180px;
+    width: 300px;
+    height: 300px;
     object-fit: cover;
     border-radius: 24px; /* Cantos arredondados */
     border: 2px solid hsl(0, 0%, 60%);
