@@ -22,6 +22,24 @@
     .profile-text h2 {
         font-size: 1.1rem;
     }
+    main {
+        flex-direction: column;
+        gap: 12px;
+    }
+    main section {
+        width: 98vw;
+        max-width: 99vw;
+        min-width: 0;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 12px;
+        box-shadow: 0 0 16px 2px #00ffe7a0, 0 2px 8px rgba(0,0,0,0.12);
+    }
+    main section img {
+        max-width: 90vw;
+        height: auto;
+        border-radius: 10px;
+    }
 }
 /* Variáveis de tema */
 :root {
