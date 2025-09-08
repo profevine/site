@@ -25,20 +25,46 @@
     main {
         flex-direction: column;
         gap: 12px;
+        width: 100vw;
+        max-width: 100vw;
+        min-width: 0;
+        align-items: center;
     }
     main section {
-        width: 98vw;
-        max-width: 99vw;
+        width: 96vw;
+        max-width: 96vw;
         min-width: 0;
         padding: 12px;
         margin: 8px 0;
         border-radius: 12px;
         box-shadow: 0 0 16px 2px #00ffe7a0, 0 2px 8px rgba(0,0,0,0.12);
+        overflow-wrap: break-word;
+        word-break: break-word;
+        box-sizing: border-box;
     }
     main section img {
-        max-width: 90vw;
+        width: 90vw;
+        max-width: 100%;
         height: auto;
         border-radius: 10px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        object-fit: contain;
+    }
+    .profile-photo img {
+        width: 90vw;
+        max-width: 180px;
+        height: auto;
+        border-radius: 16px;
+        object-position: center 20%;
+        object-fit: cover;
+    }
+    .profile-text, .profile-text h2, .profile-text p {
+        word-break: break-word;
+        overflow-wrap: break-word;
+        box-sizing: border-box;
+        max-width: 100%;
     }
 }
 /* Variáveis de tema */
