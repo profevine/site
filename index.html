@@ -46,7 +46,10 @@
                 <div class="profile-photo">
                     <img src="images/eueurecortado.jpeg" alt="Vine">
                 </div>
-                <div class="profile-text">
+                
+                
+                
+                 <div class="profile-text">
                     <h2>Oi, eu sou o Professor Vine</h2>
                     <p>
                         Sou conhecido por dar aulas de computação e idiomas no 
@@ -58,6 +61,7 @@
                         <a href="https://youtube.com/lordehenry">Youtube</a>
                     </p>
                 </div>
+                <div id="citacao-nerd" class="caixa-citacao"></div>
             </div>
         </section>
         <section>
@@ -114,5 +118,100 @@
         });
         updateButton();
     </script>
+    <script>
+const citacoes = [
+    '"Vida longa e próspera" - Spock',
+    '"Eu sou seu pai" - Darth Vader',
+    '"Faça ou não faça. Tentativa não há" - Yoda',
+    '"O bolo é uma mentira" - Portal',
+    '"O inverno está chegando" - Ned Stark',
+    '"Elementar, meu caro Watson" - Sherlock Holmes',
+    '"Por que tão sério?" - Coringa',
+    '"Com grandes poderes vêm grandes responsabilidades" - Tio Ben',
+    '"Bazinga!" - Sheldon Cooper',
+    '"A noite é escura e cheia de horrores" - Melisandre',
+    '"Eu sou Groot" - Groot',
+    '"O medo é o caminho para o lado negro" - Yoda',
+    '"Hasta la vista, baby" - Exterminador do Futuro',
+    '"Eu sou Batman" - Batman',
+    '"Meu precioso..." - Gollum',
+    '"Eu escolho você!" - Ash Ketchum',
+    '"Para o infinito e além!" - Buzz Lightyear',
+    '"A força está com você" - Obi-Wan Kenobi',
+    '"Eu sou inevitável" - Thanos',
+    '"Vingadores, Avante!" - Capitão América',
+    '"42" - Guia do Mochileiro das Galáxias',
+    '"Luke, eu sou seu pai" - Darth Vader',
+    '"Você não passará!" - Gandalf',
+    '"Viver muito e prosperar" - Spock',
+    '"A Matrix está em todo lugar" - Morpheus'
+];
+
+function definirCitacaoAleatoria() {
+    const elementoCitacao = document.getElementById('citacao-nerd');
+    const indiceAleatorio = Math.floor(Math.random() * citacoes.length);
+    elementoCitacao.textContent = citacoes[indiceAleatorio];
+}
+
+document.addEventListener('DOMContentLoaded', definirCitacaoAleatoria);
+</script>
+
+<style>
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+    max-width: 90%;
+    margin: 0 auto;
+}
+
+.profile-photo {
+    width: 500px;
+    height: 500px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.profile-photo:hover {
+    transform: scale(1.1); /* Aumenta toda a div quando passar o mouse */
+}
+
+.profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.caixa-citacao {
+    width: 100%;
+    margin: 1em 0;
+    padding: 1em;
+    font-style: italic;
+    text-align: center;
+    border-left: 4px solid #666;
+    background-color: rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    font-size: 1.1em;
+    color: #ccc;
+}
+
+.dark-mode .caixa-citacao {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #eee;
+}
+
+.profile-text {
+    text-align: center;
+    margin-top: 1em;
+    max-width: 600px;
+    line-height: 1.6;
+    color: #ddd;
+}
+
+.dark-mode .profile-text {
+    color: #eee;
+}
+</style>
 </body>
 </html>
