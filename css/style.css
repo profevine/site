@@ -1,0 +1,644 @@
+/* ===================================
+   Professor Vine - Professional Academic Theme
+   =================================== */
+
+/* --- Variáveis de Tema --- */
+:root {
+    /* Cores principais - Paleta acadêmica profissional */
+    --primary-color: #1e3a5f;
+    --primary-light: #2c5282;
+    --accent-color: #c5a065;
+    --accent-light: #d4b57a;
+
+    /* Cores de fundo e texto */
+    --bg-color: #f8f9fa;
+    --bg-secondary: #ffffff;
+    --text-color: #2d3748;
+    --text-muted: #718096;
+    --border-color: #e2e8f0;
+
+    /* Links e botões */
+    --link-color: #2c5282;
+    --link-hover: #1e3a5f;
+
+    /* Sombras */
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.07);
+    --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+
+    /* Tipografia */
+    --font-primary: 'Georgia', 'Times New Roman', serif;
+    --font-sans: 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+    --line-height: 1.8;
+
+    /* Transições */
+    --transition: all 0.25s ease;
+}
+
+/* Dark mode */
+[data-theme="dark"] {
+    --bg-color: #0f1419;
+    --bg-secondary: #1a1f29;
+    --text-color: #e2e8f0;
+    --text-muted: #a0aec0;
+    --border-color: #2d3748;
+    --primary-color: #4a90d9;
+    --primary-light: #63a3e0;
+    --accent-color: #d4b57a;
+    --link-color: #63b3ed;
+    --link-hover: #90cdf4;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.25);
+    --shadow-lg: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+/* --- Reset e Base --- */
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-sans);
+    line-height: var(--line-height);
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    transition: var(--transition);
+}
+
+a {
+    color: var(--link-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+a:hover {
+    color: var(--link-hover);
+    text-decoration: underline;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+ul {
+    list-style: none;
+}
+
+/* --- Layout --- */
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* --- Header --- */
+.site-header {
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 40px 0;
+    text-align: center;
+    transition: var(--transition);
+}
+
+.site-header h1 {
+    font-family: var(--font-primary);
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 8px;
+    letter-spacing: -0.5px;
+}
+
+.site-header .subtitle {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    font-family: var(--font-primary);
+    font-style: italic;
+}
+
+.site-header .website-url {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    margin-top: 8px;
+}
+
+/* --- Navegação --- */
+.main-nav {
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    padding: 12px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    transition: var(--transition);
+}
+
+.main-nav ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.main-nav a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+    color: var(--text-color);
+    transition: var(--transition);
+}
+
+.main-nav a:hover {
+    background: var(--bg-color);
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.main-nav img {
+    width: 20px;
+    height: 20px;
+    filter: grayscale(30%);
+    transition: var(--transition);
+}
+
+.main-nav a:hover img {
+    filter: grayscale(0%);
+}
+
+/* --- Conteúdo Principal --- */
+.main-content {
+    padding: 48px 0;
+}
+
+/* --- Seção de Perfil --- */
+.profile-section {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 40px;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 40px;
+}
+
+.profile-container {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.profile-photo {
+    flex-shrink: 0;
+}
+
+.profile-photo img {
+    width: 280px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 16px;
+    box-shadow: var(--shadow-lg);
+    border: 4px solid var(--border-color);
+}
+
+.profile-text {
+    flex: 1;
+}
+
+.profile-text h2 {
+    font-family: var(--font-primary);
+    font-size: 1.8rem;
+    color: var(--primary-color);
+    margin-bottom: 16px;
+}
+
+.profile-text p {
+    margin-bottom: 16px;
+    color: var(--text-color);
+}
+
+/* Citação nerd */
+.nerd-quote {
+    margin-top: 24px;
+    padding: 16px 20px;
+    background: var(--bg-color);
+    border-left: 4px solid var(--accent-color);
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 1rem;
+}
+
+/* --- Grid de Cards --- */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+    margin-top: 32px;
+}
+
+.card {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 28px;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+    text-align: center;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    transition: var(--transition);
+}
+
+.card:hover img {
+    transform: scale(1.02);
+}
+
+.card h2 {
+    font-family: var(--font-primary);
+    font-size: 1.3rem;
+    color: var(--primary-color);
+    margin-bottom: 12px;
+}
+
+.card p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+/* --- Seção de Áreas de Atuação --- */
+.section-title {
+    font-family: var(--font-primary);
+    color: var(--primary-color);
+    margin-bottom: 24px;
+    font-size: 1.6rem;
+    margin-top: 48px;
+}
+
+.area-card {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 28px;
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+    text-align: left;
+}
+
+.area-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.area-card h3 {
+    font-family: var(--font-primary);
+    color: var(--primary-color);
+    margin-bottom: 12px;
+    font-size: 1.2rem;
+}
+
+.area-card ul {
+    color: var(--text-muted);
+    line-height: 2;
+}
+
+/* --- Seção de Habilidades --- */
+.skills-section {
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    padding: 32px;
+    box-shadow: var(--shadow-md);
+    margin-bottom: 40px;
+}
+
+.skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 24px;
+}
+
+.skill-group h3 {
+    font-size: 1.1rem;
+    color: var(--primary-color);
+    margin-bottom: 16px;
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.skill-tag {
+    display: inline-block;
+    padding: 6px 14px;
+    background: var(--bg-color);
+    border-radius: 20px;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+
+.skill-tag:hover {
+    background: var(--primary-color);
+    color: #fff;
+}
+
+/* --- Tabs System --- */
+.tabs-container {
+    margin-top: 48px;
+}
+
+.tabs-header {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 0;
+    flex-wrap: wrap;
+}
+
+.tab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 24px;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -2px;
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition);
+    border-radius: 8px 8px 0 0;
+}
+
+.tab-btn:hover {
+    background: var(--bg-color);
+    color: var(--text-color);
+}
+
+.tab-btn.active {
+    color: var(--primary-color);
+    border-bottom-color: var(--primary-color);
+    background: var(--bg-color);
+}
+
+.tab-icon {
+    font-size: 1.2rem;
+}
+
+.tabs-content {
+    position: relative;
+}
+
+.tab-panel {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.tab-panel.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* --- Áreas Grid --- */
+.areas-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
+}
+
+/* --- Formação Acadêmica List --- */
+.formacao-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.formacao-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 20px 24px;
+    background: var(--bg-secondary);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    border-left: 4px solid var(--accent-color);
+}
+
+.formacao-item:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateX(4px);
+}
+
+.formacao-icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+}
+
+.formacao-info h3 {
+    font-family: var(--font-primary);
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+}
+
+.formacao-instituicao {
+    color: var(--text-color);
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.formacao-ano {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+/* --- Lattes Link --- */
+.lattes-link {
+    text-align: center;
+    margin-top: 32px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border-color);
+}
+
+.btn-lattes {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 28px;
+    background: var(--primary-color);
+    color: #fff;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: var(--transition);
+    text-decoration: none;
+}
+
+.btn-lattes:hover {
+    background: var(--primary-light);
+    color: #fff;
+    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.lattes-icon {
+    font-size: 1.3rem;
+}
+
+/* --- Footer --- */
+.site-footer {
+    background: var(--bg-secondary);
+    border-top: 1px solid var(--border-color);
+    padding: 32px 0;
+    text-align: center;
+    margin-top: 48px;
+}
+
+.site-footer p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* --- Botão Dark Mode --- */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    padding: 10px 16px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+}
+
+.theme-toggle:hover {
+    background: var(--bg-color);
+    border-color: var(--primary-color);
+}
+
+/* --- Responsividade --- */
+@media (max-width: 768px) {
+    .site-header h1 {
+        font-size: 2rem;
+    }
+
+    .profile-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 24px;
+    }
+
+    .profile-photo img {
+        width: 200px;
+        height: 200px;
+    }
+
+    .main-nav ul {
+        gap: 4px;
+    }
+
+    .main-nav a {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
+
+    .cards-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-section {
+        padding: 24px;
+    }
+
+    .tabs-header {
+        flex-direction: column;
+    }
+
+    .tab-btn {
+        width: 100%;
+        justify-content: center;
+        border-bottom: 2px solid transparent;
+        border-left: 3px solid transparent;
+        margin-bottom: 0;
+        border-radius: 6px;
+    }
+
+    .tab-btn.active {
+        border-left-color: var(--primary-color);
+        border-bottom-color: transparent;
+    }
+
+    .formacao-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 12px;
+    }
+
+    .site-header {
+        padding: 24px 0;
+    }
+
+    .site-header h1 {
+        font-size: 1.6rem;
+    }
+
+    .profile-photo img {
+        width: 160px;
+        height: 160px;
+    }
+
+    .theme-toggle {
+        top: 12px;
+        right: 12px;
+        padding: 8px 12px;
+        font-size: 0.85rem;
+    }
+}
