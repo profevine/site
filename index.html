@@ -47,23 +47,207 @@
             </ul>
         </div>
     </nav>
-    <main>
-        <section class="profile-section">
-            <div class="profile-container">
-                <div class="profile-photo">
-                    <img src="images/eueurecortado.jpeg" alt="Vine">
+
+    <main class="main-content">
+        <div class="container">
+            <!-- Perfil -->
+            <section class="profile-section" aria-labelledby="profile-title">
+                <div class="profile-container">
+                    <div class="profile-photo">
+                        <img src="images/eueurecortado.jpeg" alt="Foto de perfil do Professor Vine">
+                    </div>
+                    <div class="profile-text">
+                        <h2 id="profile-title">Oi, eu sou o Professor Vine</h2>
+                        <p>
+                            Sou conhecido por dar aulas de computação e idiomas no
+                            <a href="https://www.senacrs.com.br/" target="_blank" rel="noopener">SENAC-RS</a>,
+                            e Português, Literatura, História, Geografia, e Inglês nas escolas públicas do estado do Rio Grande do Sul.
+                        </p>
+                        <p>
+                            Ocasionalmente faço lives na
+                            <a href="https://www.twitch.tv/profevine" target="_blank" rel="noopener">Twitch</a> e
+                            <a href="https://youtube.com/lordehenry" target="_blank" rel="noopener">YouTube</a>.
+                        </p>
+                        <div id="nerd-quote" class="nerd-quote"></div>
+                    </div>
                 </div>
-                <div class="profile-text">
-                    <h2>Oi, eu sou o Professor Vine</h2>
-                    <p>
-                        Sou conhecido por dar aulas de computação e idiomas no 
-                        <a href="https://www.senacrs.com.br/">SENAC-RS</a>, e Português, Literatura, História, Geografia e Inglês nas escolas públicas do estado do Rio Grande do Sul.
-                    </p>
-                    <p>
-                        Ocasionalmente faço lives na 
-                        <a href="https://www.twitch.tv/profevine">Twitch</a> / 
-                        <a href="https://youtube.com/lordehenry">Youtube</a>
-                    </p>
+            </section>
+
+            <!-- Tabs de Conteúdo -->
+            <div class="tabs-container">
+                <div class="tabs-header" role="tablist">
+                    <button class="tab-btn active" data-tab="areas" role="tab" aria-selected="true" aria-controls="areas" id="tab-areas">
+                        <span class="tab-icon">📖</span>
+                        Áreas de Atuação
+                    </button>
+                    <button class="tab-btn" data-tab="habilidades" role="tab" aria-selected="false" aria-controls="habilidades" id="tab-habilidades">
+                        <span class="tab-icon">⚡</span>
+                        Habilidades
+                    </button>
+                    <button class="tab-btn" data-tab="formacao" role="tab" aria-selected="false" aria-controls="formacao" id="tab-formacao">
+                        <span class="tab-icon">🎓</span>
+                        Formação Acadêmica
+                    </button>
+                </div>
+
+                <div class="tabs-content">
+                    <!-- Tab: Áreas de Atuação -->
+                    <div class="tab-panel active" id="areas" role="tabpanel" aria-labelledby="tab-areas">
+                        <div class="cards-grid areas-grid">
+                            <article class="area-card">
+                                <h3>💻 Tecnologia & Computação</h3>
+                                <ul>
+                                    <li>• Lógica de Programação</li>
+                                    <li>• Algoritmos e Estrutura de Dados</li>
+                                    <li>• Desenvolvimento Web</li>
+                                    <li>• Redes de Computadores</li>
+                                    <li>• Telecomunicações</li>
+                                </ul>
+                            </article>
+
+                            <article class="area-card">
+                                <h3>📚 Idiomas</h3>
+                                <ul>
+                                    <li>• Português (Nativo)</li>
+                                    <li>• Inglês (Fluente)</li>
+                                    <li>• Gramática e Redação</li>
+                                    <li>• Tradução e Interpretação</li>
+                                </ul>
+                            </article>
+
+                            <article class="area-card">
+                                <h3>🌍 Ciências Humanas</h3>
+                                <ul>
+                                    <li>• História Geral e do Brasil</li>
+                                    <li>• Geografia Física e Humana</li>
+                                    <li>• Literatura Brasileira e Portuguesa</li>
+                                    <li>• Atualidades e Sociedade</li>
+                                </ul>
+                            </article>
+
+                            <article class="area-card">
+                                <h3>🎓 Educação</h3>
+                                <ul>
+                                    <li>• Ensino Técnico Profissionalizante</li>
+                                    <li>• Educação a Distância (EAD)</li>
+                                    <li>• Metodologias Ativas</li>
+                                    <li>• Didática do Ensino Superior</li>
+                                </ul>
+                            </article>
+                        </div>
+                    </div>
+
+                    <!-- Tab: Habilidades -->
+                    <div class="tab-panel" id="habilidades" role="tabpanel" aria-labelledby="tab-habilidades">
+                        <div class="skills-section">
+                            <div class="skills-grid">
+                                <div class="skill-group">
+                                    <h3>🛠️ Técnicas</h3>
+                                    <div class="skill-tags">
+                                        <span class="skill-tag">Programação</span>
+                                        <span class="skill-tag">Redes</span>
+                                        <span class="skill-tag">Git/GitHub</span>
+                                        <span class="skill-tag">Linux</span>
+                                        <span class="skill-tag">Telecom</span>
+                                    </div>
+                                </div>
+                                <div class="skill-group">
+                                    <h3>📐 Pedagógicas</h3>
+                                    <div class="skill-tags">
+                                        <span class="skill-tag">Didática</span>
+                                        <span class="skill-tag">Gestão de Sala</span>
+                                        <span class="skill-tag">Avaliação</span>
+                                        <span class="skill-tag">EAD</span>
+                                    </div>
+                                </div>
+                                <div class="skill-group">
+                                    <h3>🤝 Interpessoais</h3>
+                                    <div class="skill-tags">
+                                        <span class="skill-tag">Comunicação</span>
+                                        <span class="skill-tag">Liderança</span>
+                                        <span class="skill-tag">Empatia</span>
+                                        <span class="skill-tag">Trabalho em Equipe</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab: Formação Acadêmica -->
+                    <div class="tab-panel" id="formacao" role="tabpanel" aria-labelledby="tab-formacao">
+                        <div class="formacao-list">
+                            <div class="formacao-item">
+                                <div class="formacao-icon">🎓</div>
+                                <div class="formacao-info">
+                                    <h3>Ciência da Computação</h3>
+                                    <p class="formacao-instituicao">Uri Campus de Santo Ângelo</p>
+                                    <p class="formacao-ano">Concluído em 2015</p>
+                                </div>
+                            </div>
+
+                            <div class="formacao-item">
+                                <div class="formacao-icon">📚</div>
+                                <div class="formacao-info">
+                                    <h3>Letras Licenciatura</h3>
+                                    <p class="formacao-instituicao">Uninter</p>
+                                    <p class="formacao-ano">Concluído em 2024</p>
+                                </div>
+                            </div>
+
+                            <div class="formacao-item">
+                                <div class="formacao-icon">🌍</div>
+                                <div class="formacao-info">
+                                    <h3>Geografia Licenciatura</h3>
+                                    <p class="formacao-instituicao">Uninter</p>
+                                    <p class="formacao-ano">Previsão de conclusão em 2025</p>
+                                </div>
+                            </div>
+
+                            <div class="formacao-item">
+                                <div class="formacao-icon">📜</div>
+                                <div class="formacao-info">
+                                    <h3>História Licenciatura</h3>
+                                    <p class="formacao-instituicao">Uninter</p>
+                                    <p class="formacao-ano">Previsão de conclusão em 2025</p>
+                                </div>
+                            </div>
+
+                            <div class="formacao-item">
+                                <div class="formacao-icon">👩‍🏫</div>
+                                <div class="formacao-info">
+                                    <h3>Pós-graduação em Docência do Ensino Superior</h3>
+                                    <p class="formacao-instituicao">Fetremis</p>
+                                    <p class="formacao-ano">Concluída em 2019</p>
+                                </div>
+                            </div>
+
+                            <div class="formacao-item">
+                                <div class="formacao-icon">🔧</div>
+                                <div class="formacao-info">
+                                    <h3>Pós-graduação em Docência do Ensino Técnico</h3>
+                                    <p class="formacao-instituicao">Senac-RS</p>
+                                    <p class="formacao-ano">Concluída em 2023</p>
+                                </div>
+                            </div>
+
+                            <div class="formacao-item">
+                                <div class="formacao-icon">📡</div>
+                                <div class="formacao-info">
+                                    <h3>Técnico em Telecomunicações</h3>
+                                    <p class="formacao-instituicao">—</p>
+                                    <p class="formacao-ano">Concluído em 2004</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Link Lattes -->
+                        <div class="lattes-link">
+                            <a href="http://lattes.cnpq.br/3757043317758075" target="_blank" rel="noopener" class="btn-lattes">
+                                <span class="lattes-icon">📄</span>
+                                Ver Currículo Lattes Completo
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
