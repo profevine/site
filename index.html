@@ -1,118 +1,265 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Pessoal do Professor Vine</title>
+    <title>Professor Vine | Página Pessoal</title>
     <meta name="description" content="Página pessoal do Professor Vine. Aulas de computação, idiomas, história, geografia e muito mais.">
     <meta name="keywords" content="Professor Vine, computação, idiomas, SENAC-RS, ensino, história, geografia, português, inglês">
     <meta name="robots" content="index, follow">
     <meta name="author" content="Professor Vine">
-    <link rel="stylesheet" href="style.css">
-    <link rel="alternate" type="application/rss+xml" href="https://profevine.com.br/#" title="Últimas do Vin3">
+
     <!-- Open Graph -->
     <meta property="og:title" content="Professor Vine - Página Pessoal">
     <meta property="og:description" content="Aulas de computação, idiomas, história, geografia e muito mais.">
-    <meta property="og:image" content="https://profevine.com.br/images/eueurecortado.jpeg">
+    <meta property="og:image" content="images/eueurecortado.jpeg">
     <meta property="og:url" content="https://profevine.com.br">
     <meta property="og:type" content="website">
+
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Professor Vine - Página Pessoal">
     <meta name="twitter:description" content="Aulas de computação, idiomas, história, geografia e muito mais.">
-    <meta name="twitter:image" content="https://profevine.com.br/images/eueurecortado.jpeg">
+    <meta name="twitter:image" content="images/eueurecortado.jpeg">
+
+    <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="dark-mode">
-    <button id="toggle-dark-mode" style="position: fixed; top: 24px; right: 24px; z-index: 1000;">
-        🌙 Modo Escuro
-    </button>
-    <header>
-        <h1>Professor Vine</h1>
-        <p><a href="https://profevine.com.br">https://profevine.com.br</a></p>
+<body>
+    <button id="theme-toggle" class="theme-toggle">🌙 Modo Escuro</button>
+
+    <header class="site-header">
+        <div class="container">
+            <h1>Professor Vine</h1>
+            <p class="subtitle">Educador | Computação & Idiomas</p>
+            <p class="website-url">profevine.com.br</p>
+        </div>
     </header>
-    <nav>
-        <ul>
-            <li><a href="https://www.tiktok.com/@profevin3"><img src="images/tiktok.svg" alt="TikTok"> TikTok</a></li>
-            <li><a href="https://discord.gg/Ygf9PDWQ"><img src="images/discord.svg" alt="Discord"> Discord</a></li>
-            <li><a href="https://youtube.com/lordehenry"><img src="images/youtube.svg" alt="YouTube"> YouTube</a></li>
-            <li><a href="https://twitch.tv/profevine"><img src="images/twitch-logo.png" alt="Twitch"> Twitch</a></li>
-            <li><a href="https://gitlab.com/lordehenry"><img src="images/gitlab.svg" alt="GitLab"> GitLab</a></li>
-            <li><a href="https://github.com/profevine"><img src="images/git.svg" alt="GitHub"> GitHub</a></li>
-        </ul>
+
+    <nav class="main-nav">
+        <div class="container">
+            <ul>
+                <li><a href="https://www.tiktok.com/@profevin3" aria-label="TikTok"><img src="images/tiktok.svg" alt=""> TikTok</a></li>
+                <li><a href="https://discord.gg/Ygf9PDWQ" aria-label="Discord"><img src="images/discord.svg" alt=""> Discord</a></li>
+                <li><a href="https://youtube.com/lordehenry" aria-label="YouTube"><img src="images/youtube.svg" alt=""> YouTube</a></li>
+                <li><a href="https://twitch.tv/profevine" aria-label="Twitch"><img src="images/twitch-logo.png" alt=""> Twitch</a></li>
+                <li><a href="https://gitlab.com/lordehenry" aria-label="GitLab"><img src="images/gitlab.svg" alt=""> GitLab</a></li>
+                <li><a href="https://github.com/profevine" aria-label="GitHub"><img src="images/git.svg" alt=""> GitHub</a></li>
+            </ul>
+        </div>
     </nav>
-    <main>
-        <section class="profile-section">
-            <div class="profile-container">
-                <div class="profile-photo">
-                    <img src="images/eueurecortado.jpeg" alt="Vine">
+
+    <main class="main-content">
+        <div class="container">
+            <!-- Perfil -->
+            <section class="profile-section" aria-labelledby="profile-title">
+                <div class="profile-container">
+                    <div class="profile-photo">
+                        <img src="images/eueurecortado.jpeg" alt="Foto de perfil do Professor Vine">
+                    </div>
+                    <div class="profile-text">
+                        <h2 id="profile-title">Oi, eu sou o Professor Vine</h2>
+                        <p>
+                            Sou conhecido por dar aulas de computação e idiomas no
+                            <a href="https://www.senacrs.com.br/" target="_blank" rel="noopener">SENAC-RS</a>,
+                            e Português, Literatura, História, Geografia, espanhol e Inglês nas escolas públicas do estado do Rio Grande do Sul.
+                        </p>
+                        <p>
+                            Ocasionalmente faço lives na
+                            <a href="https://www.twitch.tv/profevine" target="_blank" rel="noopener">Twitch</a> e
+                            <a href="https://youtube.com/lordehenry" target="_blank" rel="noopener">YouTube</a>.
+                        </p>
+                        <div id="nerd-quote" class="nerd-quote"></div>
+                    </div>
                 </div>
-                <div class="profile-text">
-                    <h2>Oi, eu sou o Professor Vine</h2>
-                    <p>
-                        Sou conhecido por dar aulas de computação e idiomas no 
-                        <a href="https://www.senacrs.com.br/">SENAC-RS</a>, e Português, Literatura, História, Geografia e Inglês nas escolas públicas do estado do Rio Grande do Sul.
-                    </p>
-                    <p>
-                        Ocasionalmente faço lives na 
-                        <a href="https://www.twitch.tv/profevine">Twitch</a> / 
-                        <a href="https://youtube.com/lordehenry">Youtube</a>
-                    </p>
+            </section>
+
+            <!-- Tabs de Conteúdo -->
+            <div class="tabs-container">
+                <div class="tabs-header" role="tablist">
+                    <button class="tab-btn active" data-tab="areas" role="tab" aria-selected="true" aria-controls="areas" id="tab-areas">
+                        <span class="tab-icon">📖</span>
+                        Áreas de Atuação
+                    </button>
+                    <button class="tab-btn" data-tab="habilidades" role="tab" aria-selected="false" aria-controls="habilidades" id="tab-habilidades">
+                        <span class="tab-icon">⚡</span>
+                        Habilidades
+                    </button>
+                    <button class="tab-btn" data-tab="formacao" role="tab" aria-selected="false" aria-controls="formacao" id="tab-formacao">
+                        <span class="tab-icon">🎓</span>
+                        Formação Acadêmica
+                    </button>
+                </div>
+
+                <div class="tabs-content">
+                    <!-- Tab: Áreas de Atuação -->
+                    <div class="tab-panel active" id="areas" role="tabpanel" aria-labelledby="tab-areas">
+                        <div class="cards-grid areas-grid">
+                            <article class="area-card">
+                                <h3>💻 Tecnologia & Computação</h3>
+                                <ul>
+                                    <li>• Lógica de Programação</li>
+                                    <li>• Algoritmos e Estrutura de Dados</li>
+                                    <li>• Desenvolvimento Web</li>
+                                    <li>• Redes de Computadores</li>
+                                    <li>• Telecomunicações</li>
+                                </ul>
+                            </article>
+
+                            <article class="area-card">
+                                <h3>📚 Idiomas</h3>
+                                <ul>
+                                    <li>• Português (Nativo)</li>
+                                    <li>• Inglês (Fluente)</li>
+                                    <li>• Gramática e Redação</li>
+                                    <li>• Tradução e Interpretação</li>
+                                </ul>
+                            </article>
+
+                            <article class="area-card">
+                                <h3>🌍 Ciências Humanas</h3>
+                                <ul>
+                                    <li>• História Geral e do Brasil</li>
+                                    <li>• Geografia Física e Humana</li>
+                                    <li>• Literatura Brasileira e Portuguesa</li>
+                                    <li>• Atualidades e Sociedade</li>
+                                </ul>
+                            </article>
+
+                            <article class="area-card">
+                                <h3>🎓 Educação</h3>
+                                <ul>
+                                    <li>• Ensino Técnico Profissionalizante</li>
+                                    <li>• Educação a Distância (EAD)</li>
+                                    <li>• Metodologias Ativas</li>
+                                    <li>• Didática do Ensino Superior</li>
+                                </ul>
+                            </article>
+                        </div>
+                    </div>
+
+                    <!-- Tab: Habilidades -->
+                    <div class="tab-panel" id="habilidades" role="tabpanel" aria-labelledby="tab-habilidades">
+                        <div class="skills-section">
+                            <div class="skills-grid">
+                                <div class="skill-group">
+                                    <h3>🛠️ Técnicas</h3>
+                                    <div class="skill-tags">
+                                        <span class="skill-tag">Programação</span>
+                                        <span class="skill-tag">Redes</span>
+                                        <span class="skill-tag">Git/GitHub</span>
+                                        <span class="skill-tag">Linux</span>
+                                        <span class="skill-tag">Telecom</span>
+                                    </div>
+                                </div>
+                                <div class="skill-group">
+                                    <h3>📐 Pedagógicas</h3>
+                                    <div class="skill-tags">
+                                        <span class="skill-tag">Didática</span>
+                                        <span class="skill-tag">Gestão de Sala</span>
+                                        <span class="skill-tag">Avaliação</span>
+                                        <span class="skill-tag">EAD</span>
+                                    </div>
+                                </div>
+                                <div class="skill-group">
+                                    <h3>🤝 Interpessoais</h3>
+                                    <div class="skill-tags">
+                                        <span class="skill-tag">Comunicação</span>
+                                        <span class="skill-tag">Liderança</span>
+                                        <span class="skill-tag">Empatia</span>
+                                        <span class="skill-tag">Trabalho em Equipe</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab: Formação Acadêmica -->
+                    <div class="tab-panel" id="formacao" role="tabpanel" aria-labelledby="tab-formacao">
+                        <div class="formacao-list">
+                            <div class="formacao-item">
+                                <div class="formacao-icon">🎓</div>
+                                <div class="formacao-info">
+                                    <h3>Ciência da Computação</h3>
+                                    <p class="formacao-instituicao">Uri Campus de Santo Ângelo</p>
+                                    <p class="formacao-ano">Concluído em 2015</p>
+                                </div>
+                            </div>
+
+                            <div class="formacao-item">
+                                <div class="formacao-icon">📚</div>
+                                <div class="formacao-info">
+                                    <h3>Letras Licenciatura</h3>
+                                    <p class="formacao-instituicao">Uninter</p>
+                                    <p class="formacao-ano">Concluído em 2024</p>
+                                </div>
+                            </div>
+
+                            <div class="formacao-item">
+                                <div class="formacao-icon">🌍</div>
+                                <div class="formacao-info">
+                                    <h3>Geografia Licenciatura</h3>
+                                    <p class="formacao-instituicao">Uninter</p>
+                                    <p class="formacao-ano">Previsão de conclusão em 2025</p>
+                                </div>
+                            </div>
+
+                            <div class="formacao-item">
+                                <div class="formacao-icon">📜</div>
+                                <div class="formacao-info">
+                                    <h3>História Licenciatura</h3>
+                                    <p class="formacao-instituicao">Uninter</p>
+                                    <p class="formacao-ano">Previsão de conclusão em 2025</p>
+                                </div>
+                            </div>
+
+                            <div class="formacao-item">
+                                <div class="formacao-icon">👩‍🏫</div>
+                                <div class="formacao-info">
+                                    <h3>Pós-graduação em Docência do Ensino Superior</h3>
+                                    <p class="formacao-instituicao">Fetremis</p>
+                                    <p class="formacao-ano">Concluída em 2019</p>
+                                </div>
+                            </div>
+
+                            <div class="formacao-item">
+                                <div class="formacao-icon">🔧</div>
+                                <div class="formacao-info">
+                                    <h3>Pós-graduação em Docência do Ensino Técnico</h3>
+                                    <p class="formacao-instituicao">Senac-RS</p>
+                                    <p class="formacao-ano">Concluída em 2023</p>
+                                </div>
+                            </div>
+
+                            <div class="formacao-item">
+                                <div class="formacao-icon">📡</div>
+                                <div class="formacao-info">
+                                    <h3>Técnico em Telecomunicações</h3>
+                                    <p class="formacao-instituicao">—</p>
+                                    <p class="formacao-ano">Concluído em 2004</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Link Lattes -->
+                        <div class="lattes-link">
+                            <a href="http://lattes.cnpq.br/3757043317758075" target="_blank" rel="noopener" class="btn-lattes">
+                                <span class="lattes-icon">📄</span>
+                                Ver Currículo Lattes Completo
+                            </a>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </section>
-        <section>
-            <img src="images/cc.jpg" alt="Ciência da Computação">
-            <h2>Graduado em Ciência da Computação</h2>
-            <p>Graduado em Ciência da Computação pela <a href="http://san.uri.br/sites/site_novo/">Uri Campus de Santo Ângelo</a> em 2015.</p>
-        </section>
-        <section>
-            <img src="images/letras.jpg" alt="Letras">
-            <h2>Graduado em Letras Licenciatura</h2>
-            <p>Pela Universidade <a href="http://uninter.com">Uninter</a>, em 2024.</p>
-        </section>
-        <section>
-            <img src="images/geografia.png" alt="Letras">
-            <h2>Acadêmico de Geografia Licenciatura</h2>
-            <p>Pela Universidade <a href="http://uninter.com">Uninter</a>, em 2025.</p>
-        </section>
-        <section>
-            <img src="images/historia.png" alt="Letras">
-            <h2>Acadêmico de História Licenciatura</h2>
-            <p>Pela Universidade <a href="http://uninter.com">Uninter</a>, em 2025.</p>
-        </section>
-        <section>
-            <img src="images/docente.jpg" alt="Pós docente">
-            <h2>Pós Graduação Latu Sensu em Docência do Ensino Superior</h2>
-            <p>Pós Graduado em docência do ensino superior pela <a href="https://fetremis.edu.br/">Fetremis</a> em 2018/2019.</p>
-        </section>
-        <section>
-            <img src="images/docente.jpg" alt="Pós docente">
-            <h2>Pós Graduação Latu Sensu em Docência do Ensino Técnico</h2>
-            <p>Pós Graduado em docência do ensino Técnico pelo <a href="https://senacrs.com.br/">Senac-RS</a> em 2023.</p>
-        </section>
-        <section>
-            <img src="images/tectele.jpeg" alt="Técnico em Telecomunicações">
-            <h2>Técnico em Telecomunicações</h2>
-            <p>Curso técnico em telecomunicações concluído em 2004.</p>
-        </section>
+        </div>
     </main>
-    <footer>
-        <p><a href="mailto:lordehenry@gmail.com">Mande um email para mim em: lordehenry@gmail.com</a></p>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p><a href="mailto:lordehenry@gmail.com">lordehenry@gmail.com</a></p>
+            <p style="margin-top: 8px; font-size: 0.85rem;">&copy; 2026 Professor Vine. Todos os direitos reservados.</p>
+        </div>
     </footer>
-    <script>
-        const toggleButton = document.getElementById('toggle-dark-mode');
-        function updateButton() {
-            if (document.body.classList.contains('dark-mode')) {
-                toggleButton.textContent = '☀️ Modo Claro';
-            } else {
-                toggleButton.textContent = '🌙 Modo Escuro';
-            }
-        }
-        toggleButton.addEventListener('click', () => {
-            document.body.classList.toggle('dark-mode');
-            updateButton();
-        });
-        updateButton();
-    </script>
+
+    <script src="js/main.js"></script>
 </body>
 </html>
