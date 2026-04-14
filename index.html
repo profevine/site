@@ -68,7 +68,12 @@
                             <a href="https://www.twitch.tv/profevine" target="_blank" rel="noopener">Twitch</a> e
                             <a href="https://youtube.com/lordehenry" target="_blank" rel="noopener">YouTube</a>.
                         </p>
-                        <div id="nerd-quote" class="nerd-quote"></div>
+                        <div class="quote-wrapper">
+                            <div id="nerd-quote" class="nerd-quote"></div>
+                            <button id="share-quote-btn" class="share-btn" title="Compartilhar esta frase">
+                                <span class="share-icon">📤</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -87,6 +92,10 @@
                     <button class="tab-btn" data-tab="formacao" role="tab" aria-selected="false" aria-controls="formacao" id="tab-formacao">
                         <span class="tab-icon">🎓</span>
                         Formação Acadêmica
+                    </button>
+                    <button class="tab-btn" data-tab="blog" role="tab" aria-selected="false" aria-controls="blog" id="tab-blog">
+                        <span class="tab-icon">✍️</span>
+                        Blog
                     </button>
                 </div>
 
@@ -248,6 +257,17 @@
                             </a>
                         </div>
                     </div>
+
+                    <!-- Tab: Blog -->
+                    <div class="tab-panel" id="blog" role="tabpanel" aria-labelledby="tab-blog">
+                        <div id="admin-controls" class="admin-controls" style="display: none; margin-bottom: 24px; text-align: right;">
+                            <button id="new-post-btn" class="btn-primary" style="padding: 10px 20px; border-radius: 8px;">➕ Novo Post</button>
+                        </div>
+                        <div id="blog-posts" class="blog-grid">
+                            <!-- Posts serão renderizados via JS -->
+                            <div class="loading-spinner">Carregando pensamentos...</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -256,9 +276,60 @@
     <footer class="site-footer">
         <div class="container">
             <p><a href="mailto:lordehenry@gmail.com">lordehenry@gmail.com</a></p>
-            <p style="margin-top: 8px; font-size: 0.85rem;">&copy; 2026 Professor Vine. Todos os direitos reservados.</p>
+            <p style="margin-top: 8px; font-size: 0.85rem;">&copy; 2026 Professor Vine. Todos os direitos reservados. | <a href="#" id="admin-login-link" style="color: var(--text-muted); font-size: 0.75rem;">Admin</a></p>
         </div>
     </footer>
+
+    <!-- Modals para Blog -->
+    <div id="login-modal" class="modal" style="display:none;">
+        <div class="modal-content">
+            <h3>🔐 Acesso Administrativo</h3>
+            <form id="login-form">
+                <div class="form-group">
+                    <label>Usuário:</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label>Senha:</label>
+                    <input type="password" id="password" required>
+                </div>
+                <div style="display:flex; gap:10px; margin-top:15px;">
+                    <button type="submit" class="btn-primary">Entrar</button>
+                    <button type="button" class="btn-cancel close-modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="post-modal" class="modal" style="display:none;">
+        <div class="modal-content modal-large">
+            <h3>✍️ Escrever Nova Ideia</h3>
+            <form id="post-form">
+                <div class="form-group">
+                    <label>Título:</label>
+                    <input type="text" id="post-title" required>
+                </div>
+                <div class="form-group">
+                    <label>Categoria:</label>
+                    <select id="post-category">
+                        <option value="Tecnologia">Tecnologia</option>
+                        <option value="Educação">Educação</option>
+                        <option value="Idiomas">Idiomas</option>
+                        <option value="História/Geo">História/Geografia</option>
+                        <option value="Geral">Geral</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Conteúdo:</label>
+                    <textarea id="post-content" required rows="10"></textarea>
+                </div>
+                <div style="display:flex; gap:10px; margin-top:15px;">
+                    <button type="submit" class="btn-primary">Publicar</button>
+                    <button type="button" class="btn-cancel close-modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
     <script src="js/main.js"></script>
 </body>

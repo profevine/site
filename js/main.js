@@ -59,14 +59,61 @@
         '"42" - Guia do Mochileiro das Galáxias',
         '"Você não passará!" - Gandalf',
         '"Viver muito e prosperar" - Spock',
-        '"A Matrix está em todo lugar" - Morpheus'
+        '"A Matrix está em todo lugar" - Morpheus',
+        '"Que a Força esteja com você" - Star Wars',
+        '"O conhecimento é poder" - Francis Bacon (e muitos nerds)',
+        '"Não entre em pânico" - O Guia do Mochileiro das Galáxias',
+        '"Um anel para todos governar" - O Senhor dos Anéis',
+        '"Eu entendi a referência!" - Capitão América',
+        '"Isso é o que eu faço: eu bebo e sei das coisas" - Tyrion Lannister',
+        '"Onde vamos, não precisamos de estradas" - De Volta para o Futuro',
+        '"Mantenha seus amigos por perto e seus inimigos mais perto ainda" - O Poderoso Chefão',
+        '"Tudo o que temos de decidir é o que fazer com o tempo que nos é dado" - Gandalf',
+        '"Lute como um herói ou viva o suficiente para se tornar o vilão" - Batman: O Cavaleiro das Trevas',
+        '"Wubba Lubba Dub Dub!" - Rick Sanchez',
+        '"Este é o caminho" - O Mandaloriano',
+        '"Pikachu, eu escolho você!" - Ash Ketchum',
+        '"Kamehameha!" - Goku',
+        '"Shinzou wo Sasageyo!" - Attack on Titan',
+        '"O mundo não é feito de átomos; é feito de histórias" - Stan Lee',
+        '"Pressione F para prestar homenagem" - Call of Duty',
+        '"É perigoso ir sozinho! Tome isto" - The Legend of Zelda'
     ];
+
+    let currentQuote = "";
 
     function setRandomQuote() {
         const el = document.getElementById('nerd-quote');
         if (!el) return;
         const idx = Math.floor(Math.random() * quotes.length);
-        el.textContent = quotes[idx];
+        currentQuote = quotes[idx];
+        el.textContent = currentQuote;
+    }
+
+    function shareQuote() {
+        const shareData = {
+            title: 'Citação Nerd do Professor Vine',
+            text: currentQuote + ' - Visto em profevine.com.br',
+            url: 'https://profevine.com.br'
+        };
+
+        if (navigator.share) {
+            navigator.share(shareData)
+                .catch((err) => console.log('Erro ao compartilhar:', err));
+        } else {
+            // Fallback: Copiar para o clipboard
+            const textArea = document.createElement("textarea");
+            textArea.value = shareData.text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                alert('Citação copiada para a área de transferência!');
+            } catch (err) {
+                console.error('Erro ao copiar:', err);
+            }
+            document.body.removeChild(textArea);
+        }
     }
 
     // --- Sistema de Abas ---
@@ -90,8 +137,148 @@
                 // Add active class to clicked button and corresponding panel
                 this.classList.add('active');
                 this.setAttribute('aria-selected', 'true');
-                document.getElementById(tabId).classList.add('active');
+                const targetPanel = document.getElementById(tabId);
+                if (targetPanel) {
+                    targetPanel.classList.add('active');
+                }
+
+                // If blog tab is clicked, render posts
+                if (tabId === 'blog') {
+                    renderPosts();
+                }
             });
+        });
+    }
+
+    // --- Blog Logic ---
+    let blogPosts = [
+        {
+            id: 1,
+            title: "Bem-vindo ao meu novo Blog!",
+            category: "Geral",
+            date: "2026-04-14",
+            content: "Olá! Este é o espaço onde pretendo compartilhar ideias sobre educação, tecnologia e curiosidades do mundo nerd. Fique à vontade para explorar!"
+        },
+        {
+            id: 2,
+            title: "O futuro da educação e a IA",
+            category: "Educação",
+            date: "2026-04-10",
+            content: "Estamos vivendo uma revolução com ferramentas como o Gemini e o ChatGPT. Como professores, nosso papel está mudando de transmissores de informação para curadores de conhecimento."
+        }
+    ];
+
+    function loadPosts() {
+        const saved = localStorage.getItem('profevine-posts');
+        if (saved) {
+            const extraPosts = JSON.parse(saved);
+            return [...blogPosts, ...extraPosts].sort((a, b) => new Date(b.date) - new Date(a.date));
+        }
+        return blogPosts;
+    }
+
+    function renderPosts() {
+        const container = document.getElementById('blog-posts');
+        if (!container) return;
+
+        const allPosts = loadPosts();
+        container.innerHTML = '';
+
+        if (allPosts.length === 0) {
+            container.innerHTML = '<p>Nenhum post ainda.</p>';
+            return;
+        }
+
+        allPosts.forEach(post => {
+            const card = document.createElement('article');
+            card.className = 'blog-card';
+            card.innerHTML = `
+                <span class="blog-category">${post.category}</span>
+                <span class="blog-date">${formatDate(post.date)}</span>
+                <h3>${post.title}</h3>
+                <div class="blog-excerpt">${post.content}</div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    function formatDate(dateStr) {
+        const options = { day: '2-digit', month: 'long', year: 'numeric' };
+        return new Date(dateStr).toLocaleDateString('pt-BR', options);
+    }
+
+    // --- Admin Logic ---
+    const ADMIN_SESSION_KEY = 'profevine-admin-logged';
+    
+    function initAdmin() {
+        const loginLink = document.getElementById('admin-login-link');
+        const loginModal = document.getElementById('login-modal');
+        const loginForm = document.getElementById('login-form');
+        const postModal = document.getElementById('post-modal');
+        const postForm = document.getElementById('post-form');
+        const newPostBtn = document.getElementById('new-post-btn');
+        const closeModals = document.querySelectorAll('.close-modal');
+
+        // Check if already logged in
+        if (localStorage.getItem(ADMIN_SESSION_KEY) === 'true') {
+            document.getElementById('admin-controls').style.display = 'block';
+        }
+
+        loginLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.style.display = 'flex';
+        });
+
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+
+            // Simple check (admin / admin123)
+            if (user === 'admin' && pass === 'admin123') {
+                localStorage.setItem(ADMIN_SESSION_KEY, 'true');
+                document.getElementById('admin-controls').style.display = 'block';
+                loginModal.style.display = 'none';
+                alert('Bem-vindo, Professor!');
+            } else {
+                alert('Acesso negado!');
+            }
+        });
+
+        newPostBtn.addEventListener('click', () => {
+            postModal.style.display = 'flex';
+        });
+
+        postForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newPost = {
+                id: Date.now(),
+                title: document.getElementById('post-title').value,
+                category: document.getElementById('post-category').value,
+                date: new Date().toISOString().split('T')[0],
+                content: document.getElementById('post-content').value
+            };
+
+            const saved = JSON.parse(localStorage.getItem('profevine-posts') || '[]');
+            saved.push(newPost);
+            localStorage.setItem('profevine-posts', JSON.stringify(saved));
+
+            postModal.style.display = 'none';
+            postForm.reset();
+            renderPosts();
+        });
+
+        closeModals.forEach(btn => {
+            btn.addEventListener('click', () => {
+                loginModal.style.display = 'none';
+                postModal.style.display = 'none';
+            });
+        });
+
+        // Close on background click
+        window.addEventListener('click', (e) => {
+            if (e.target === loginModal) loginModal.style.display = 'none';
+            if (e.target === postModal) postModal.style.display = 'none';
         });
     }
 
@@ -100,10 +287,16 @@
         initTheme();
         setRandomQuote();
         initTabs();
+        initAdmin();
 
         const toggleBtn = document.getElementById('theme-toggle');
         if (toggleBtn) {
             toggleBtn.addEventListener('click', toggleTheme);
+        }
+
+        const shareBtn = document.getElementById('share-quote-btn');
+        if (shareBtn) {
+            shareBtn.addEventListener('click', shareQuote);
         }
     });
 })();
