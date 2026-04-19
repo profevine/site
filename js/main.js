@@ -156,7 +156,7 @@
     }
 
     // --- Blog Logic ---
-    const API_URL = 'http://45.165.144.164:5000/api';
+    const API_URL = 'https://girls-any-buying-brunette.trycloudflare.com/api';
     let blogPosts = [];
 
     async function loadPosts() {
