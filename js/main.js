@@ -131,13 +131,9 @@
         const tabButtons = document.querySelectorAll('.tab-btn');
         const tabPanels = document.querySelectorAll('.tab-panel');
         
-        console.log('Botões de aba encontrados:', tabButtons.length);
-        console.log('Painéis de aba encontrados:', tabPanels.length);
-
         tabButtons.forEach(function(btn) {
             btn.addEventListener('click', function() {
                 const tabId = this.getAttribute('data-tab');
-                console.log('Aba clicada:', tabId);
 
                 // Remove active class from all buttons and panels
                 tabButtons.forEach(function(b) {
@@ -152,7 +148,6 @@
                 this.classList.add('active');
                 this.setAttribute('aria-selected', 'true');
                 const targetPanel = document.getElementById(tabId);
-                console.log('Painel de destino encontrado:', !!targetPanel);
                 if (targetPanel) {
                     targetPanel.classList.add('active');
                 }
@@ -171,8 +166,8 @@
 
     async function loadPosts() {
         try {
-            const response = await fetch(\`\${API_URL}/posts\`);
-            if (!response.ok) throw new Error(\`Erro HTTP: \${response.status}\`);
+            const response = await fetch(`${API_URL}/posts`);
+            if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
             blogPosts = await response.json();
             return blogPosts;
         } catch (error) {
@@ -191,12 +186,12 @@
         container.innerHTML = '';
 
         if (result.error) {
-            container.innerHTML = \`
+            container.innerHTML = `
                 <div class="error-msg" style="padding: 20px; text-align: center; color: var(--text-muted);">
                     <p>⚠️ Não foi possível carregar os posts.</p>
-                    <p><small>Verifique se a porta 5000 está aberta no roteador e se o IP externo está correto.</small></p>
-                    <p><small>Erro: \${result.message}</small></p>
-                </div>\`;
+                    <p><small>Verifique se o seu Raspberry Pi e o túnel Cloudflare estão online.</small></p>
+                    <p><small>Erro: ${result.message}</small></p>
+                </div>`;
             return;
         }
 
@@ -208,12 +203,12 @@
         result.forEach(post => {
             const card = document.createElement('article');
             card.className = 'blog-card';
-            card.innerHTML = \`
-                <span class="blog-category">\${post.category}</span>
-                <span class="blog-date">\${formatDate(post.date)}</span>
-                <h3>\${post.title}</h3>
-                <div class="blog-excerpt">\${post.content}</div>
-            \`;
+            card.innerHTML = `
+                <span class="blog-category">${post.category}</span>
+                <span class="blog-date">${formatDate(post.date)}</span>
+                <h3>${post.title}</h3>
+                <div class="blog-excerpt">${post.content}</div>
+            `;
             container.appendChild(card);
         });
     }
@@ -238,90 +233,101 @@
 
         // Check if already logged in (check for token)
         if (localStorage.getItem(ADMIN_TOKEN_KEY)) {
-            document.getElementById('admin-controls').style.display = 'block';
+            const adminControls = document.getElementById('admin-controls');
+            if (adminControls) adminControls.style.display = 'block';
         }
 
-        loginLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            loginModal.style.display = 'flex';
-        });
+        if (loginLink) {
+            loginLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                loginModal.style.display = 'flex';
+            });
+        }
 
-        loginForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+        if (loginForm) {
+            loginForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
 
-            try {
-                const response = await fetch(\`\${API_URL}/login\`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username, password })
-                });
+                try {
+                    const response = await fetch(`${API_URL}/login`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ username, password })
+                    });
 
-                if (response.ok) {
-                    const data = await response.json();
-                    localStorage.setItem(ADMIN_TOKEN_KEY, data.token);
-                    document.getElementById('admin-controls').style.display = 'block';
-                    loginModal.style.display = 'none';
-                    alert('Bem-vindo, Professor!');
-                    loginForm.reset();
-                } else {
-                    alert('Acesso negado!');
+                    if (response.ok) {
+                        const data = await response.json();
+                        localStorage.setItem(ADMIN_TOKEN_KEY, data.token);
+                        const adminControls = document.getElementById('admin-controls');
+                        if (adminControls) adminControls.style.display = 'block';
+                        loginModal.style.display = 'none';
+                        alert('Bem-vindo, Professor!');
+                        loginForm.reset();
+                    } else {
+                        alert('Acesso negado!');
+                    }
+                } catch (error) {
+                    alert('Erro ao conectar ao servidor!');
                 }
-            } catch (error) {
-                alert('Erro ao conectar ao servidor!');
-            }
-        });
+            });
+        }
 
-        newPostBtn.addEventListener('click', () => {
-            postModal.style.display = 'flex';
-        });
+        if (newPostBtn) {
+            newPostBtn.addEventListener('click', () => {
+                postModal.style.display = 'flex';
+            });
+        }
 
-        postForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const token = localStorage.getItem(ADMIN_TOKEN_KEY);
-            if (!token) {
-                alert('Sessão expirada. Faça login novamente.');
-                return;
-            }
-
-            const newPost = {
-                title: document.getElementById('post-title').value,
-                category: document.getElementById('post-category').value,
-                date: new Date().toISOString().split('T')[0],
-                content: document.getElementById('post-content').value
-            };
-
-            try {
-                const response = await fetch(\`\${API_URL}/posts\`, {
-                    method: 'POST',
-                    headers: { 
-                        'Content-Type': 'application/json',
-                        'Authorization': \`Bearer \${token}\`
-                    },
-                    body: JSON.stringify(newPost)
-                });
-
-                if (response.ok) {
-                    postModal.style.display = 'none';
-                    postForm.reset();
-                    renderPosts();
-                } else if (response.status === 401 || response.status === 403) {
-                    alert('Sessão inválida. Faça login novamente.');
-                    localStorage.removeItem(ADMIN_TOKEN_KEY);
-                    document.getElementById('admin-controls').style.display = 'none';
-                } else {
-                    alert('Erro ao publicar post.');
+        if (postForm) {
+            postForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const token = localStorage.getItem(ADMIN_TOKEN_KEY);
+                if (!token) {
+                    alert('Sessão expirada. Faça login novamente.');
+                    return;
                 }
-            } catch (error) {
-                alert('Erro de conexão!');
-            }
-        });
+
+                const newPost = {
+                    title: document.getElementById('post-title').value,
+                    category: document.getElementById('post-category').value,
+                    date: new Date().toISOString().split('T')[0],
+                    content: document.getElementById('post-content').value
+                };
+
+                try {
+                    const response = await fetch(`${API_URL}/posts`, {
+                        method: 'POST',
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: JSON.stringify(newPost)
+                    });
+
+                    if (response.ok) {
+                        postModal.style.display = 'none';
+                        postForm.reset();
+                        renderPosts();
+                    } else if (response.status === 401 || response.status === 403) {
+                        alert('Sessão inválida. Faça login novamente.');
+                        localStorage.removeItem(ADMIN_TOKEN_KEY);
+                        const adminControls = document.getElementById('admin-controls');
+                        if (adminControls) adminControls.style.display = 'none';
+                    } else {
+                        alert('Erro ao publicar post.');
+                    }
+                } catch (error) {
+                    alert('Erro de conexão!');
+                }
+            });
+        }
 
         closeModals.forEach(btn => {
             btn.addEventListener('click', () => {
-                loginModal.style.display = 'none';
-                postModal.style.display = 'none';
+                if (loginModal) loginModal.style.display = 'none';
+                if (postModal) postModal.style.display = 'none';
             });
         });
 
