@@ -161,7 +161,7 @@
     }
 
     // --- Blog Logic ---
-    const API_URL = 'https://girls-any-buying-brunette.trycloudflare.com/api';
+    const API_URL = 'https://api.profevine.com.br/api';
     let blogPosts = [];
     let editingPostId = null;
 
