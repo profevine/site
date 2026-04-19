@@ -120,10 +120,14 @@
     function initTabs() {
         const tabButtons = document.querySelectorAll('.tab-btn');
         const tabPanels = document.querySelectorAll('.tab-panel');
+        
+        console.log('Botões de aba encontrados:', tabButtons.length);
+        console.log('Painéis de aba encontrados:', tabPanels.length);
 
         tabButtons.forEach(function(btn) {
             btn.addEventListener('click', function() {
                 const tabId = this.getAttribute('data-tab');
+                console.log('Aba clicada:', tabId);
 
                 // Remove active class from all buttons and panels
                 tabButtons.forEach(function(b) {
@@ -138,6 +142,7 @@
                 this.classList.add('active');
                 this.setAttribute('aria-selected', 'true');
                 const targetPanel = document.getElementById(tabId);
+                console.log('Painel de destino encontrado:', !!targetPanel);
                 if (targetPanel) {
                     targetPanel.classList.add('active');
                 }
@@ -319,10 +324,23 @@
 
     // --- Inicialização ---
     document.addEventListener('DOMContentLoaded', function() {
-        initTheme();
-        setRandomQuote();
-        initTabs();
-        initAdmin();
+        console.log('Script carregado e DOM pronto.');
+        
+        try {
+            initTheme();
+        } catch (e) { console.error('Erro no tema:', e); }
+
+        try {
+            setRandomQuote();
+        } catch (e) { console.error('Erro nas citações:', e); }
+
+        try {
+            initTabs();
+        } catch (e) { console.error('Erro nas abas:', e); }
+
+        try {
+            initAdmin();
+        } catch (e) { console.error('Erro no admin:', e); }
 
         const toggleBtn = document.getElementById('theme-toggle');
         if (toggleBtn) {
