@@ -163,6 +163,7 @@
     // --- Blog Logic ---
     const API_URL = 'https://girls-any-buying-brunette.trycloudflare.com/api';
     let blogPosts = [];
+    let editingPostId = null;
 
     async function loadPosts() {
         try {
@@ -200,17 +201,76 @@
             return;
         }
 
+        const isAdmin = !!localStorage.getItem(ADMIN_TOKEN_KEY);
+
         result.forEach(post => {
             const card = document.createElement('article');
             card.className = 'blog-card';
+            
+            let adminActions = '';
+            if (isAdmin) {
+                adminActions = `
+                    <div class="admin-post-actions" style="margin-top: 15px; display: flex; gap: 10px;">
+                        <button class="btn-edit" data-id="${post.id}" style="font-size: 0.8rem; padding: 5px 10px; background: var(--accent-color);">✏️ Editar</button>
+                        <button class="btn-delete" data-id="${post.id}" style="font-size: 0.8rem; padding: 5px 10px; background: #e53e3e;">🗑️ Apagar</button>
+                    </div>
+                `;
+            }
+
             card.innerHTML = `
                 <span class="blog-category">${post.category}</span>
                 <span class="blog-date">${formatDate(post.date)}</span>
                 <h3>${post.title}</h3>
                 <div class="blog-excerpt">${post.content}</div>
+                ${adminActions}
             `;
             container.appendChild(card);
         });
+
+        // Add event listeners for edit and delete buttons
+        if (isAdmin) {
+            document.querySelectorAll('.btn-edit').forEach(btn => {
+                btn.addEventListener('click', handleEditClick);
+            });
+            document.querySelectorAll('.btn-delete').forEach(btn => {
+                btn.addEventListener('click', handleDeleteClick);
+            });
+        }
+    }
+
+    async function handleDeleteClick(e) {
+        const id = e.target.getAttribute('data-id');
+        if (!confirm('Tem certeza que deseja apagar este post?')) return;
+
+        const token = localStorage.getItem(ADMIN_TOKEN_KEY);
+        try {
+            const response = await fetch(`${API_URL}/posts/${id}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${token}` }
+            });
+
+            if (response.ok) {
+                renderPosts();
+            } else {
+                alert('Erro ao apagar post.');
+            }
+        } catch (error) {
+            alert('Erro de conexão!');
+        }
+    }
+
+    function handleEditClick(e) {
+        const id = parseInt(e.target.getAttribute('data-id'));
+        const post = blogPosts.find(p => p.id === id);
+        if (!post) return;
+
+        editingPostId = id;
+        document.getElementById('post-title').value = post.title;
+        document.getElementById('post-category').value = post.category;
+        document.getElementById('post-content').value = post.content;
+        
+        document.getElementById('post-modal').querySelector('h3').textContent = '✏️ Editar Post';
+        document.getElementById('post-modal').style.display = 'flex';
     }
 
     function formatDate(dateStr) {
@@ -265,6 +325,7 @@
                         loginModal.style.display = 'none';
                         alert('Bem-vindo, Professor!');
                         loginForm.reset();
+                        renderPosts(); // Refresh to show edit/delete buttons
                     } else {
                         alert('Acesso negado!');
                     }
@@ -276,6 +337,9 @@
 
         if (newPostBtn) {
             newPostBtn.addEventListener('click', () => {
+                editingPostId = null;
+                postForm.reset();
+                document.getElementById('post-modal').querySelector('h3').textContent = '✍️ Escrever Nova Ideia';
                 postModal.style.display = 'flex';
             });
         }
@@ -289,21 +353,27 @@
                     return;
                 }
 
-                const newPost = {
+                const postData = {
                     title: document.getElementById('post-title').value,
                     category: document.getElementById('post-category').value,
-                    date: new Date().toISOString().split('T')[0],
                     content: document.getElementById('post-content').value
                 };
 
+                const url = editingPostId ? `${API_URL}/posts/${editingPostId}` : `${API_URL}/posts`;
+                const method = editingPostId ? 'PUT' : 'POST';
+                
+                if (method === 'POST') {
+                    postData.date = new Date().toISOString().split('T')[0];
+                }
+
                 try {
-                    const response = await fetch(`${API_URL}/posts`, {
-                        method: 'POST',
+                    const response = await fetch(url, {
+                        method: method,
                         headers: { 
                             'Content-Type': 'application/json',
                             'Authorization': `Bearer ${token}`
                         },
-                        body: JSON.stringify(newPost)
+                        body: JSON.stringify(postData)
                     });
 
                     if (response.ok) {
@@ -316,7 +386,7 @@
                         const adminControls = document.getElementById('admin-controls');
                         if (adminControls) adminControls.style.display = 'none';
                     } else {
-                        alert('Erro ao publicar post.');
+                        alert('Erro ao salvar post.');
                     }
                 } catch (error) {
                     alert('Erro de conexão!');
