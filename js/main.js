@@ -151,37 +151,28 @@
     }
 
     // --- Blog Logic ---
-    let blogPosts = [
-        {
-            id: 1,
-            title: "Bem-vindo ao meu novo Blog!",
-            category: "Geral",
-            date: "2026-04-14",
-            content: "Olá! Este é o espaço onde pretendo compartilhar ideias sobre educação, tecnologia e curiosidades do mundo nerd. Fique à vontade para explorar!"
-        },
-        {
-            id: 2,
-            title: "O futuro da educação e a IA",
-            category: "Educação",
-            date: "2026-04-10",
-            content: "Estamos vivendo uma revolução com ferramentas como o Gemini e o ChatGPT. Como professores, nosso papel está mudando de transmissores de informação para curadores de conhecimento."
-        }
-    ];
+    const API_URL = 'http://45.165.144.164:5000/api';
+    let blogPosts = [];
 
-    function loadPosts() {
-        const saved = localStorage.getItem('profevine-posts');
-        if (saved) {
-            const extraPosts = JSON.parse(saved);
-            return [...blogPosts, ...extraPosts].sort((a, b) => new Date(b.date) - new Date(a.date));
+    async function loadPosts() {
+        try {
+            const response = await fetch(\`\${API_URL}/posts\`);
+            if (!response.ok) throw new Error('Erro ao carregar posts');
+            blogPosts = await response.json();
+            return blogPosts;
+        } catch (error) {
+            console.error(error);
+            return [];
         }
-        return blogPosts;
     }
 
-    function renderPosts() {
+    async function renderPosts() {
         const container = document.getElementById('blog-posts');
         if (!container) return;
 
-        const allPosts = loadPosts();
+        container.innerHTML = '<div class="loading-spinner">Carregando pensamentos...</div>';
+        
+        const allPosts = await loadPosts();
         container.innerHTML = '';
 
         if (allPosts.length === 0) {
@@ -192,23 +183,24 @@
         allPosts.forEach(post => {
             const card = document.createElement('article');
             card.className = 'blog-card';
-            card.innerHTML = `
-                <span class="blog-category">${post.category}</span>
-                <span class="blog-date">${formatDate(post.date)}</span>
-                <h3>${post.title}</h3>
-                <div class="blog-excerpt">${post.content}</div>
-            `;
+            card.innerHTML = \`
+                <span class="blog-category">\${post.category}</span>
+                <span class="blog-date">\${formatDate(post.date)}</span>
+                <h3>\${post.title}</h3>
+                <div class="blog-excerpt">\${post.content}</div>
+            \`;
             container.appendChild(card);
         });
     }
 
     function formatDate(dateStr) {
+        if (!dateStr) return '';
         const options = { day: '2-digit', month: 'long', year: 'numeric' };
         return new Date(dateStr).toLocaleDateString('pt-BR', options);
     }
 
     // --- Admin Logic ---
-    const ADMIN_SESSION_KEY = 'profevine-admin-logged';
+    const ADMIN_TOKEN_KEY = 'profevine-admin-token';
     
     function initAdmin() {
         const loginLink = document.getElementById('admin-login-link');
@@ -219,8 +211,8 @@
         const newPostBtn = document.getElementById('new-post-btn');
         const closeModals = document.querySelectorAll('.close-modal');
 
-        // Check if already logged in
-        if (localStorage.getItem(ADMIN_SESSION_KEY) === 'true') {
+        // Check if already logged in (check for token)
+        if (localStorage.getItem(ADMIN_TOKEN_KEY)) {
             document.getElementById('admin-controls').style.display = 'block';
         }
 
@@ -229,19 +221,30 @@
             loginModal.style.display = 'flex';
         });
 
-        loginForm.addEventListener('submit', (e) => {
+        loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const user = document.getElementById('username').value;
-            const pass = document.getElementById('password').value;
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
 
-            // Simple check (admin / admin123)
-            if (user === 'admin' && pass === 'admin123') {
-                localStorage.setItem(ADMIN_SESSION_KEY, 'true');
-                document.getElementById('admin-controls').style.display = 'block';
-                loginModal.style.display = 'none';
-                alert('Bem-vindo, Professor!');
-            } else {
-                alert('Acesso negado!');
+            try {
+                const response = await fetch(\`\${API_URL}/login\`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username, password })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    localStorage.setItem(ADMIN_TOKEN_KEY, data.token);
+                    document.getElementById('admin-controls').style.display = 'block';
+                    loginModal.style.display = 'none';
+                    alert('Bem-vindo, Professor!');
+                    loginForm.reset();
+                } else {
+                    alert('Acesso negado!');
+                }
+            } catch (error) {
+                alert('Erro ao conectar ao servidor!');
             }
         });
 
@@ -249,23 +252,45 @@
             postModal.style.display = 'flex';
         });
 
-        postForm.addEventListener('submit', (e) => {
+        postForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            const token = localStorage.getItem(ADMIN_TOKEN_KEY);
+            if (!token) {
+                alert('Sessão expirada. Faça login novamente.');
+                return;
+            }
+
             const newPost = {
-                id: Date.now(),
                 title: document.getElementById('post-title').value,
                 category: document.getElementById('post-category').value,
                 date: new Date().toISOString().split('T')[0],
                 content: document.getElementById('post-content').value
             };
 
-            const saved = JSON.parse(localStorage.getItem('profevine-posts') || '[]');
-            saved.push(newPost);
-            localStorage.setItem('profevine-posts', JSON.stringify(saved));
+            try {
+                const response = await fetch(\`\${API_URL}/posts\`, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Authorization': \`Bearer \${token}\`
+                    },
+                    body: JSON.stringify(newPost)
+                });
 
-            postModal.style.display = 'none';
-            postForm.reset();
-            renderPosts();
+                if (response.ok) {
+                    postModal.style.display = 'none';
+                    postForm.reset();
+                    renderPosts();
+                } else if (response.status === 401 || response.status === 403) {
+                    alert('Sessão inválida. Faça login novamente.');
+                    localStorage.removeItem(ADMIN_TOKEN_KEY);
+                    document.getElementById('admin-controls').style.display = 'none';
+                } else {
+                    alert('Erro ao publicar post.');
+                }
+            } catch (error) {
+                alert('Erro de conexão!');
+            }
         });
 
         closeModals.forEach(btn => {
