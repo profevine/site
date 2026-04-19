@@ -210,9 +210,9 @@
             let adminActions = '';
             if (isAdmin) {
                 adminActions = `
-                    <div class="admin-post-actions" style="margin-top: 15px; display: flex; gap: 10px;">
-                        <button class="btn-edit" data-id="${post.id}" style="font-size: 0.8rem; padding: 5px 10px; background: var(--accent-color);">✏️ Editar</button>
-                        <button class="btn-delete" data-id="${post.id}" style="font-size: 0.8rem; padding: 5px 10px; background: #e53e3e;">🗑️ Apagar</button>
+                    <div class="admin-post-actions">
+                        <button class="btn-edit" data-id="${post.id}"><span>✏️</span> Editar</button>
+                        <button class="btn-delete" data-id="${post.id}"><span>🗑️</span> Apagar</button>
                     </div>
                 `;
             }

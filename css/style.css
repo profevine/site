@@ -622,6 +622,61 @@ ul {
     color: var(--text-color);
 }
 
+/* --- Admin Post Actions --- */
+.admin-post-actions {
+    margin-top: 24px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.btn-edit, .btn-delete {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 1px solid transparent;
+}
+
+.btn-edit {
+    background: var(--bg-color);
+    color: var(--primary-color);
+    border-color: var(--border-color);
+}
+
+.btn-edit:hover {
+    background: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.btn-delete {
+    background: #fff5f5;
+    color: #c53030;
+    border-color: #feb2b2;
+}
+
+[data-theme="dark"] .btn-delete {
+    background: #2d1a1a;
+    color: #fc8181;
+    border-color: #742a2a;
+}
+
+.btn-delete:hover {
+    background: #c53030;
+    color: #fff;
+    border-color: #c53030;
+    transform: translateY(-2px);
+}
+
 /* --- Modals --- */
 .modal {
     display: none;
