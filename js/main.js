@@ -239,7 +239,7 @@
     }
 
     async function handleDeleteClick(e) {
-        const id = e.target.getAttribute('data-id');
+        const id = e.currentTarget.getAttribute('data-id');
         if (!confirm('Tem certeza que deseja apagar este post?')) return;
 
         const token = localStorage.getItem(ADMIN_TOKEN_KEY);
@@ -263,7 +263,7 @@
     }
 
     function handleEditClick(e) {
-        const id = parseInt(e.target.getAttribute('data-id'));
+        const id = parseInt(e.currentTarget.getAttribute('data-id'));
         const post = blogPosts.find(p => p.id === id);
         if (!post) return;
 
