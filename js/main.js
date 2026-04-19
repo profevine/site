@@ -14,6 +14,11 @@
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         const theme = savedTheme || (prefersDark ? 'dark' : 'light');
         setTheme(theme);
+
+        const toggleBtn = document.getElementById('theme-toggle');
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', toggleTheme);
+        }
     }
 
     function setTheme(theme) {
@@ -88,6 +93,11 @@
         const idx = Math.floor(Math.random() * quotes.length);
         currentQuote = quotes[idx];
         el.textContent = currentQuote;
+
+        const shareBtn = document.getElementById('share-quote-btn');
+        if (shareBtn) {
+            shareBtn.addEventListener('click', shareQuote);
+        }
     }
 
     function shareQuote() {
@@ -341,15 +351,5 @@
         try {
             initAdmin();
         } catch (e) { console.error('Erro no admin:', e); }
-
-        const toggleBtn = document.getElementById('theme-toggle');
-        if (toggleBtn) {
-            toggleBtn.addEventListener('click', toggleTheme);
-        }
-
-        const shareBtn = document.getElementById('share-quote-btn');
-        if (shareBtn) {
-            shareBtn.addEventListener('click', shareQuote);
-        }
     });
 })();
