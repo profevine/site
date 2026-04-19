@@ -252,10 +252,13 @@
             if (response.ok) {
                 renderPosts();
             } else {
-                alert('Erro ao apagar post.');
+                const errorData = await response.json();
+                console.error('Erro ao apagar:', errorData);
+                alert(`Erro ao apagar post: ${errorData.error || response.statusText}`);
             }
         } catch (error) {
-            alert('Erro de conexão!');
+            console.error('Erro de conexão:', error);
+            alert('Erro de conexão ao tentar apagar o post!');
         }
     }
 
