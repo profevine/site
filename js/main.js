@@ -157,12 +157,12 @@
     async function loadPosts() {
         try {
             const response = await fetch(\`\${API_URL}/posts\`);
-            if (!response.ok) throw new Error('Erro ao carregar posts');
+            if (!response.ok) throw new Error(\`Erro HTTP: \${response.status}\`);
             blogPosts = await response.json();
             return blogPosts;
         } catch (error) {
-            console.error(error);
-            return [];
+            console.error('Erro ao carregar posts:', error);
+            return { error: true, message: error.message };
         }
     }
 
@@ -172,15 +172,25 @@
 
         container.innerHTML = '<div class="loading-spinner">Carregando pensamentos...</div>';
         
-        const allPosts = await loadPosts();
+        const result = await loadPosts();
         container.innerHTML = '';
 
-        if (allPosts.length === 0) {
+        if (result.error) {
+            container.innerHTML = \`
+                <div class="error-msg" style="padding: 20px; text-align: center; color: var(--text-muted);">
+                    <p>⚠️ Não foi possível carregar os posts.</p>
+                    <p><small>Verifique se a porta 5000 está aberta no roteador e se o IP externo está correto.</small></p>
+                    <p><small>Erro: \${result.message}</small></p>
+                </div>\`;
+            return;
+        }
+
+        if (result.length === 0) {
             container.innerHTML = '<p>Nenhum post ainda.</p>';
             return;
         }
 
-        allPosts.forEach(post => {
+        result.forEach(post => {
             const card = document.createElement('article');
             card.className = 'blog-card';
             card.innerHTML = \`
