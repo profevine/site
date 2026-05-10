@@ -83,16 +83,11 @@
         const quote = quotes[idx];
         el.textContent = quote;
         el.setAttribute('data-quote', quote);
-        
-        // Adiciona botão de compartilhar
-        const shareBtn = document.createElement('button');
-        shareBtn.className = 'quote-share-btn';
-        shareBtn.textContent = '🔗 Compartilhar';
-        shareBtn.setAttribute('aria-label', 'Compartilhar citação');
-        shareBtn.addEventListener('click', function() {
-            shareQuote(quote);
-        });
-        el.appendChild(shareBtn);
+
+        const shareBtn = document.getElementById('share-quote-btn');
+        if (shareBtn) {
+            shareBtn.onclick = function() { shareQuote(quote); };
+        }
     }
 
     function shareQuote(quote) {

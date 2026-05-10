@@ -291,6 +291,10 @@ ul {
     box-shadow: var(--shadow-sm);
 }
 
+.quote-wrapper {
+    position: relative;
+}
+
 .quote-share-btn {
     display: inline-block;
     margin-top: 12px;
@@ -300,6 +304,7 @@ ul {
     border: none;
     border-radius: 6px;
     font-size: 0.85rem;
+    font-style: normal;
     cursor: pointer;
     transition: var(--transition);
     font-family: var(--font-sans);
