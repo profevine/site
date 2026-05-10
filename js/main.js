@@ -76,10 +76,14 @@
         '"A Matrix está em todo lugar" - Morpheus'
     ];
 
+    let currentQuoteIdx = -1;
+
     function setRandomQuote() {
         const el = document.getElementById('nerd-quote');
         if (!el) return;
-        const idx = Math.floor(Math.random() * quotes.length);
+        let idx;
+        do { idx = Math.floor(Math.random() * quotes.length); } while (idx === currentQuoteIdx);
+        currentQuoteIdx = idx;
         const quote = quotes[idx];
         el.textContent = quote;
         el.setAttribute('data-quote', quote);
@@ -268,6 +272,11 @@
         const toggleBtn = document.getElementById('theme-toggle');
         if (toggleBtn) {
             toggleBtn.addEventListener('click', toggleTheme);
+        }
+
+        const shuffleBtn = document.getElementById('shuffle-quote-btn');
+        if (shuffleBtn) {
+            shuffleBtn.addEventListener('click', setRandomQuote);
         }
     });
 
