@@ -273,49 +273,46 @@ ul {
 }
 
 /* --- Citação nerd --- */
-.nerd-quote {
+.quote-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 16px;
     margin-top: 24px;
-    padding: 16px 20px 40px;
+    padding: 14px 16px;
     background: var(--bg-color);
     border-left: 4px solid var(--accent-color);
     border-radius: 0 8px 8px 0;
-    font-style: italic;
-    color: var(--text-muted);
-    font-size: 1rem;
-    position: relative;
     transition: var(--transition);
 }
 
-.nerd-quote:hover {
+.quote-wrapper:hover {
     background: var(--bg-secondary);
     box-shadow: var(--shadow-sm);
 }
 
-.quote-wrapper {
-    position: relative;
+.nerd-quote {
+    flex: 1;
+    font-style: italic;
+    color: var(--text-muted);
+    font-size: 1rem;
 }
 
 .quote-share-btn {
-    position: absolute;
-    bottom: 24px;
-    right: 12px;
-    padding: 3px 12px;
+    flex-shrink: 0;
     background: transparent;
-    color: var(--accent-color);
-    border: 1px solid var(--accent-color);
-    border-radius: 100px;
-    font-size: 0.75rem;
-    font-style: normal;
-    font-family: var(--font-sans);
-    letter-spacing: 0.03em;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1rem;
     cursor: pointer;
-    opacity: 0.7;
+    padding: 4px;
+    line-height: 1;
+    opacity: 0.5;
     transition: var(--transition);
+    font-style: normal;
 }
 
 .quote-share-btn:hover {
-    background: var(--accent-color);
-    color: #fff;
+    color: var(--accent-color);
     opacity: 1;
 }
 
