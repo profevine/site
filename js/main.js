@@ -1,6 +1,7 @@
 /**
  * Professor Vine - Main JavaScript
- * Funcionalidades: Dark mode, citações nerd e sistema de abas
+ * Funcionalidades: Dark mode, citações nerd, sistema de abas,
+ * voltar ao topo, ano dinâmico e animações on-scroll
  */
 
 (function() {
@@ -14,17 +15,14 @@
         const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         const theme = savedTheme || (prefersDark ? 'dark' : 'light');
         setTheme(theme);
-
-        const toggleBtn = document.getElementById('theme-toggle');
-        if (toggleBtn) {
-            toggleBtn.addEventListener('click', toggleTheme);
-        }
     }
 
     function setTheme(theme) {
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem(THEME_KEY, theme);
         updateToggleButton(theme);
+        // Atualiza meta theme-color
+        updateMetaThemeColor(theme);
     }
 
     function toggleTheme() {
@@ -37,9 +35,20 @@
         const btn = document.getElementById('theme-toggle');
         if (!btn) return;
         btn.textContent = theme === 'dark' ? '☀️ Modo Claro' : '🌙 Modo Escuro';
+        btn.setAttribute('aria-label', theme === 'dark' ? 'Ativar modo claro' : 'Ativar modo escuro');
     }
 
-    // --- Citações Nerd ---
+    function updateMetaThemeColor(theme) {
+        let metaThemeColor = document.querySelector('meta[name="theme-color"]');
+        if (!metaThemeColor) {
+            metaThemeColor = document.createElement('meta');
+            metaThemeColor.name = 'theme-color';
+            document.head.appendChild(metaThemeColor);
+        }
+        metaThemeColor.content = theme === 'dark' ? '#0f1419' : '#1e3a5f';
+    }
+
+    // --- Citações Nerd com Compartilhamento ---
     const quotes = [
         '"Vida longa e próspera" - Spock',
         '"Eu sou seu pai" - Darth Vader',
@@ -64,73 +73,69 @@
         '"42" - Guia do Mochileiro das Galáxias',
         '"Você não passará!" - Gandalf',
         '"Viver muito e prosperar" - Spock',
-        '"A Matrix está em todo lugar" - Morpheus',
-        '"Que a Força esteja com você" - Star Wars',
-        '"O conhecimento é poder" - Francis Bacon (e muitos nerds)',
-        '"Não entre em pânico" - O Guia do Mochileiro das Galáxias',
-        '"Um anel para todos governar" - O Senhor dos Anéis',
-        '"Eu entendi a referência!" - Capitão América',
-        '"Isso é o que eu faço: eu bebo e sei das coisas" - Tyrion Lannister',
-        '"Onde vamos, não precisamos de estradas" - De Volta para o Futuro',
-        '"Mantenha seus amigos por perto e seus inimigos mais perto ainda" - O Poderoso Chefão',
-        '"Tudo o que temos de decidir é o que fazer com o tempo que nos é dado" - Gandalf',
-        '"Lute como um herói ou viva o suficiente para se tornar o vilão" - Batman: O Cavaleiro das Trevas',
-        '"Wubba Lubba Dub Dub!" - Rick Sanchez',
-        '"Este é o caminho" - O Mandaloriano',
-        '"Pikachu, eu escolho você!" - Ash Ketchum',
-        '"Kamehameha!" - Goku',
-        '"Shinzou wo Sasageyo!" - Attack on Titan',
-        '"O mundo não é feito de átomos; é feito de histórias" - Stan Lee',
-        '"Pressione F para prestar homenagem" - Call of Duty',
-        '"É perigoso ir sozinho! Tome isto" - The Legend of Zelda'
+        '"A Matrix está em todo lugar" - Morpheus'
     ];
-
-    let currentQuote = "";
 
     function setRandomQuote() {
         const el = document.getElementById('nerd-quote');
         if (!el) return;
         const idx = Math.floor(Math.random() * quotes.length);
-        currentQuote = quotes[idx];
-        el.textContent = currentQuote;
+        const quote = quotes[idx];
+        el.textContent = quote;
+        el.setAttribute('data-quote', quote);
+        
+        // Adiciona botão de compartilhar
+        const shareBtn = document.createElement('button');
+        shareBtn.className = 'quote-share-btn';
+        shareBtn.textContent = '🔗 Compartilhar';
+        shareBtn.setAttribute('aria-label', 'Compartilhar citação');
+        shareBtn.addEventListener('click', function() {
+            shareQuote(quote);
+        });
+        el.appendChild(shareBtn);
+    }
 
-        const shareBtn = document.getElementById('share-quote-btn');
-        if (shareBtn) {
-            shareBtn.addEventListener('click', shareQuote);
+    function shareQuote(quote) {
+        const text = `${quote} — via profevine.com.br`;
+        const url = 'https://profevine.com.br';
+        
+        if (navigator.share) {
+            navigator.share({
+                title: 'Citação Nerd',
+                text: text,
+                url: url
+            }).catch(() => copyToClipboard(text));
+        } else {
+            copyToClipboard(text);
         }
     }
 
-    function shareQuote() {
-        const shareData = {
-            title: 'Citação Nerd do Professor Vine',
-            text: currentQuote + ' - Visto em profevine.com.br',
-            url: 'https://profevine.com.br'
-        };
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+            showToast('Citação copiada! 📋');
+        }).catch(() => {
+            showToast('Não foi possível copiar 😕');
+        });
+    }
 
-        if (navigator.share) {
-            navigator.share(shareData)
-                .catch((err) => console.log('Erro ao compartilhar:', err));
-        } else {
-            // Fallback: Copiar para o clipboard
-            const textArea = document.createElement("textarea");
-            textArea.value = shareData.text;
-            document.body.appendChild(textArea);
-            textArea.select();
-            try {
-                document.execCommand('copy');
-                alert('Citação copiada para a área de transferência!');
-            } catch (err) {
-                console.error('Erro ao copiar:', err);
-            }
-            document.body.removeChild(textArea);
-        }
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.className = 'toast-notification';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => toast.classList.add('visible'), 10);
+        setTimeout(() => {
+            toast.classList.remove('visible');
+            setTimeout(() => toast.remove(), 300);
+        }, 2000);
     }
 
     // --- Sistema de Abas ---
     function initTabs() {
         const tabButtons = document.querySelectorAll('.tab-btn');
         const tabPanels = document.querySelectorAll('.tab-panel');
-        
+
         tabButtons.forEach(function(btn) {
             btn.addEventListener('click', function() {
                 const tabId = this.getAttribute('data-tab');
@@ -147,288 +152,139 @@
                 // Add active class to clicked button and corresponding panel
                 this.classList.add('active');
                 this.setAttribute('aria-selected', 'true');
-                const targetPanel = document.getElementById(tabId);
-                if (targetPanel) {
-                    targetPanel.classList.add('active');
-                }
-
-                // If blog tab is clicked, render posts
-                if (tabId === 'blog') {
-                    renderPosts();
-                }
+                document.getElementById(tabId).classList.add('active');
             });
         });
     }
 
-    // --- Blog Logic ---
-    const API_URL = 'https://api.profevine.com.br/api';
-    let blogPosts = [];
-    let editingPostId = null;
+    // --- Botão Voltar ao Topo ---
+    function initBackToTop() {
+        const btn = document.getElementById('back-to-top');
+        if (!btn) return;
 
-    async function loadPosts() {
-        try {
-            const response = await fetch(`${API_URL}/posts`);
-            if (!response.ok) throw new Error(`Erro HTTP: ${response.status}`);
-            blogPosts = await response.json();
-            return blogPosts;
-        } catch (error) {
-            console.error('Erro ao carregar posts:', error);
-            return { error: true, message: error.message };
-        }
-    }
-
-    async function renderPosts() {
-        const container = document.getElementById('blog-posts');
-        if (!container) return;
-
-        container.innerHTML = '<div class="loading-spinner">Carregando pensamentos...</div>';
-        
-        const result = await loadPosts();
-        container.innerHTML = '';
-
-        if (result.error) {
-            container.innerHTML = `
-                <div class="error-msg" style="padding: 20px; text-align: center; color: var(--text-muted);">
-                    <p>⚠️ Não foi possível carregar os posts.</p>
-                    <p><small>Verifique se o seu Raspberry Pi e o túnel Cloudflare estão online.</small></p>
-                    <p><small>Erro: ${result.message}</small></p>
-                </div>`;
-            return;
-        }
-
-        if (result.length === 0) {
-            container.innerHTML = '<p>Nenhum post ainda.</p>';
-            return;
-        }
-
-        const isAdmin = !!localStorage.getItem(ADMIN_TOKEN_KEY);
-
-        result.forEach(post => {
-            const card = document.createElement('article');
-            card.className = 'blog-card';
-            
-            let adminActions = '';
-            if (isAdmin) {
-                adminActions = `
-                    <div class="admin-post-actions">
-                        <button class="btn-edit" data-id="${post.id}"><span>✏️</span> Editar</button>
-                        <button class="btn-delete" data-id="${post.id}"><span>🗑️</span> Apagar</button>
-                    </div>
-                `;
-            }
-
-            card.innerHTML = `
-                <span class="blog-category">${post.category}</span>
-                <span class="blog-date">${formatDate(post.date)}</span>
-                <h3>${post.title}</h3>
-                <div class="blog-excerpt">${post.content}</div>
-                ${adminActions}
-            `;
-            container.appendChild(card);
-        });
-
-        // Add event listeners for edit and delete buttons
-        if (isAdmin) {
-            document.querySelectorAll('.btn-edit').forEach(btn => {
-                btn.addEventListener('click', handleEditClick);
-            });
-            document.querySelectorAll('.btn-delete').forEach(btn => {
-                btn.addEventListener('click', handleDeleteClick);
-            });
-        }
-    }
-
-    async function handleDeleteClick(e) {
-        const id = e.currentTarget.getAttribute('data-id');
-        if (!confirm('Tem certeza que deseja apagar este post?')) return;
-
-        const token = localStorage.getItem(ADMIN_TOKEN_KEY);
-        try {
-            const response = await fetch(`${API_URL}/posts/${id}`, {
-                method: 'DELETE',
-                headers: { 'Authorization': `Bearer ${token}` }
-            });
-
-            if (response.ok) {
-                renderPosts();
+        function toggleButton() {
+            if (window.scrollY > 300) {
+                btn.classList.add('visible');
             } else {
-                const errorData = await response.json();
-                console.error('Erro ao apagar:', errorData);
-                alert(`Erro ao apagar post: ${errorData.error || response.statusText}`);
+                btn.classList.remove('visible');
             }
-        } catch (error) {
-            console.error('Erro de conexão:', error);
-            alert('Erro de conexão ao tentar apagar o post!');
         }
-    }
 
-    function handleEditClick(e) {
-        const id = parseInt(e.currentTarget.getAttribute('data-id'));
-        const post = blogPosts.find(p => p.id === id);
-        if (!post) return;
+        btn.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
 
-        editingPostId = id;
-        document.getElementById('post-title').value = post.title;
-        document.getElementById('post-category').value = post.category;
-        document.getElementById('post-content').value = post.content;
+        // Usa Intersection Observer para performance
+        const observer = new IntersectionObserver(
+            function(entries) {
+                entries.forEach(function(entry) {
+                    if (!entry.isIntersecting) {
+                        toggleButton();
+                    }
+                });
+            },
+            { threshold: 0, rootMargin: '-300px 0px 0px 0px' }
+        );
+
+        observer.observe(document.body);
         
-        document.getElementById('post-modal').querySelector('h3').textContent = '✏️ Editar Post';
-        document.getElementById('post-modal').style.display = 'flex';
+        // Fallback para scroll direto
+        window.addEventListener('scroll', toggleButton, { passive: true });
+        toggleButton(); // Check inicial
     }
 
-    function formatDate(dateStr) {
-        if (!dateStr) return '';
-        const options = { day: '2-digit', month: 'long', year: 'numeric' };
-        return new Date(dateStr).toLocaleDateString('pt-BR', options);
+    // --- Ano Dinâmico no Footer ---
+    function updateYear() {
+        const yearEl = document.getElementById('current-year');
+        if (yearEl) {
+            yearEl.textContent = new Date().getFullYear();
+        }
     }
 
-    // --- Admin Logic ---
-    const ADMIN_TOKEN_KEY = 'profevine-admin-token';
-    
-    function initAdmin() {
-        const loginLink = document.getElementById('admin-login-link');
-        const loginModal = document.getElementById('login-modal');
-        const loginForm = document.getElementById('login-form');
-        const postModal = document.getElementById('post-modal');
-        const postForm = document.getElementById('post-form');
-        const newPostBtn = document.getElementById('new-post-btn');
-        const closeModals = document.querySelectorAll('.close-modal');
-
-        // Check if already logged in (check for token)
-        if (localStorage.getItem(ADMIN_TOKEN_KEY)) {
-            const adminControls = document.getElementById('admin-controls');
-            if (adminControls) adminControls.style.display = 'block';
-        }
-
-        if (loginLink) {
-            loginLink.addEventListener('click', (e) => {
-                e.preventDefault();
-                loginModal.style.display = 'flex';
-            });
-        }
-
-        if (loginForm) {
-            loginForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const username = document.getElementById('username').value;
-                const password = document.getElementById('password').value;
-
-                try {
-                    const response = await fetch(`${API_URL}/login`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ username, password })
-                    });
-
-                    if (response.ok) {
-                        const data = await response.json();
-                        localStorage.setItem(ADMIN_TOKEN_KEY, data.token);
-                        const adminControls = document.getElementById('admin-controls');
-                        if (adminControls) adminControls.style.display = 'block';
-                        loginModal.style.display = 'none';
-                        alert('Bem-vindo, Professor!');
-                        loginForm.reset();
-                        renderPosts(); // Refresh to show edit/delete buttons
-                    } else {
-                        alert('Acesso negado!');
+    // --- Animações com Intersection Observer ---
+    function initScrollAnimations() {
+        const animatedElements = document.querySelectorAll('.area-card, .formacao-item, .skill-group, .card');
+        
+        const observer = new IntersectionObserver(
+            function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                        observer.unobserve(entry.target);
                     }
-                } catch (error) {
-                    alert('Erro ao conectar ao servidor!');
-                }
-            });
-        }
+                });
+            },
+            {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            }
+        );
 
-        if (newPostBtn) {
-            newPostBtn.addEventListener('click', () => {
-                editingPostId = null;
-                postForm.reset();
-                document.getElementById('post-modal').querySelector('h3').textContent = '✍️ Escrever Nova Ideia';
-                postModal.style.display = 'flex';
-            });
-        }
-
-        if (postForm) {
-            postForm.addEventListener('submit', async (e) => {
-                e.preventDefault();
-                const token = localStorage.getItem(ADMIN_TOKEN_KEY);
-                if (!token) {
-                    alert('Sessão expirada. Faça login novamente.');
-                    return;
-                }
-
-                const postData = {
-                    title: document.getElementById('post-title').value,
-                    category: document.getElementById('post-category').value,
-                    content: document.getElementById('post-content').value
-                };
-
-                const url = editingPostId ? `${API_URL}/posts/${editingPostId}` : `${API_URL}/posts`;
-                const method = editingPostId ? 'PUT' : 'POST';
-                
-                if (method === 'POST') {
-                    postData.date = new Date().toISOString().split('T')[0];
-                }
-
-                try {
-                    const response = await fetch(url, {
-                        method: method,
-                        headers: { 
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${token}`
-                        },
-                        body: JSON.stringify(postData)
-                    });
-
-                    if (response.ok) {
-                        postModal.style.display = 'none';
-                        postForm.reset();
-                        renderPosts();
-                    } else if (response.status === 401 || response.status === 403) {
-                        alert('Sessão inválida. Faça login novamente.');
-                        localStorage.removeItem(ADMIN_TOKEN_KEY);
-                        const adminControls = document.getElementById('admin-controls');
-                        if (adminControls) adminControls.style.display = 'none';
-                    } else {
-                        alert('Erro ao salvar post.');
-                    }
-                } catch (error) {
-                    alert('Erro de conexão!');
-                }
-            });
-        }
-
-        closeModals.forEach(btn => {
-            btn.addEventListener('click', () => {
-                if (loginModal) loginModal.style.display = 'none';
-                if (postModal) postModal.style.display = 'none';
-            });
+        animatedElements.forEach(function(el) {
+            el.classList.add('animate-on-scroll');
+            observer.observe(el);
         });
+    }
 
-        // Close on background click
-        window.addEventListener('click', (e) => {
-            if (e.target === loginModal) loginModal.style.display = 'none';
-            if (e.target === postModal) postModal.style.display = 'none';
-        });
+    // --- Lazy Loading para Imagens (fallback para browsers antigos) ---
+    function initLazyLoading() {
+        if ('loading' in HTMLImageElement.prototype) {
+            // Browser suporta loading="lazy" nativamente
+            const images = document.querySelectorAll('img[loading="lazy"]');
+            images.forEach(function(img) {
+                img.src = img.src;
+            });
+        } else {
+            // Fallback para browsers antigos
+            const script = document.createElement('script');
+            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js';
+            script.onload = function() {
+                const observer = lozad();
+                observer.observe();
+            };
+            document.head.appendChild(script);
+        }
+    }
+
+    // --- Preload de Fontes (se usar Google Fonts no futuro) ---
+    function preloadResources() {
+        // Exemplo para quando adicionar Google Fonts
+        // const link = document.createElement('link');
+        // link.rel = 'preload';
+        // link.as = 'style';
+        // link.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap';
+        // document.head.appendChild(link);
     }
 
     // --- Inicialização ---
     document.addEventListener('DOMContentLoaded', function() {
-        console.log('Script carregado e DOM pronto.');
-        
-        try {
-            initTheme();
-        } catch (e) { console.error('Erro no tema:', e); }
+        initTheme();
+        setRandomQuote();
+        initTabs();
+        initBackToTop();
+        updateYear();
+        initScrollAnimations();
+        initLazyLoading();
+        preloadResources();
 
-        try {
-            setRandomQuote();
-        } catch (e) { console.error('Erro nas citações:', e); }
-
-        try {
-            initTabs();
-        } catch (e) { console.error('Erro nas abas:', e); }
-
-        try {
-            initAdmin();
-        } catch (e) { console.error('Erro no admin:', e); }
+        const toggleBtn = document.getElementById('theme-toggle');
+        if (toggleBtn) {
+            toggleBtn.addEventListener('click', toggleTheme);
+        }
     });
+
+    // --- Service Worker Registration (opcional, para PWA) ---
+    if ('serviceWorker' in navigator) {
+        // Descomentar quando tiver sw.js
+        // navigator.serviceWorker.register('/sw.js')
+        //     .then(function(registration) {
+        //         console.log('SW registrado:', registration.scope);
+        //     })
+        //     .catch(function(error) {
+        //         console.log('SW falhou:', error);
+        //     });
+    }
 })();
