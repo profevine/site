@@ -1,0 +1,31 @@
+# Imagens originais (manter apenas WebP em produção)
+# *.jpg
+# *.jpeg
+# *.png
+# !notrelated.png
+
+# Arquivos de backup
+*.bak
+*.backup
+*~
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editores
+.vscode/
+.idea/
+*.swp
+*.swo
+*#
+
+# Build/produção (se usar build tools no futuro)
+/dist
+/build
+/node_modules
