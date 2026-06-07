@@ -98,15 +98,19 @@
     <div class="container">
         <div class="admin-container">
             <header class="editor-header">
-                <h2>Editar Post</h2>
-                <a href="index.html" style="text-decoration: none; color: var(--primary-color);">← Voltar</a>
+                <h2>Administração</h2>
+                <div class="header-actions">
+                    <button class="toolbar-btn" onclick="newPost()" style="background: var(--primary-light);">+ Novo Post</button>
+                    <button class="toolbar-btn html-btn" onclick="newPostFromHTML()">+ Novo Post/HTML</button>
+                    <a href="index.html" style="text-decoration: none; color: var(--primary-color); margin-left: 15px;">← Sair</a>
+                </div>
             </header>
 
             <div class="editor-toolbar">
                 <button class="toolbar-btn" onclick="insertTag('b')"><b>B</b></button>
                 <button class="toolbar-btn" onclick="insertTag('i')"><i>I</i></button>
                 <button class="toolbar-btn" onclick="insertTag('a')">Link</button>
-                <button class="toolbar-btn html-btn" id="insert-html-btn"><span>&lt;/&gt;</span> Incluir HTML</button>
+                <button class="toolbar-btn html-btn" id="insert-html-btn" title="Inserir snippet HTML no cursor"><span>&lt;/&gt;</span> Inserir HTML</button>
             </div>
 
             <textarea id="post-content" placeholder="Escreva seu post aqui..."></textarea>
@@ -117,8 +121,24 @@
 
     <script src="js/main.js"></script>
     <script>
+        const textarea = document.getElementById('post-content');
+
+        function newPost() {
+            if (textarea.value && !confirm('Deseja descartar as alterações atuais?')) return;
+            textarea.value = '';
+            textarea.focus();
+        }
+
+        function newPostFromHTML() {
+            const html = prompt('Cole o código HTML completo do novo post:');
+            if (html) {
+                if (textarea.value && !confirm('Isso irá substituir o conteúdo atual. Continuar?')) return;
+                textarea.value = html;
+                textarea.focus();
+            }
+        }
+
         function insertTag(tag) {
-            const textarea = document.getElementById('post-content');
             const start = textarea.selectionStart;
             const end = textarea.selectionEnd;
             const text = textarea.value;
