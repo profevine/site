@@ -864,11 +864,75 @@
     Trocar esses dois fios fará o motor vibrar sem girar ou girar de forma irregular.
 </div>
 
+<h2>Fios do Motor 28BYJ-48 → Driver ULN2003</h2>
+<p>
+    O motor 28BYJ-48 possui um conector JST de <strong>5 vias</strong> que se encaixa
+    diretamente no driver ULN2003. Cada fio tem uma cor padrão de fábrica que
+    corresponde a uma bobina interna. Confira a tabela antes de plugar:
+</p>
+
+<table class="avoid-break">
+    <thead>
+        <tr>
+            <th style="width:12%">Cor do Fio</th>
+            <th style="width:22%">Identificação</th>
+            <th style="width:28%">Função / Bobina</th>
+            <th style="width:18%">Pino Driver</th>
+            <th>Observações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><span class="color-dot" style="background:#E53E3E"></span><strong>Vermelho</strong></td>
+            <td>VCC — Centro</td>
+            <td>Alimentação das bobinas (ponto central)</td>
+            <td><span class="pin pin-vcc">VCC (+) 5V</span></td>
+            <td>Fio do meio no conector. Sempre vai ao VCC da fonte externa.</td>
+        </tr>
+        <tr>
+            <td><span class="color-dot" style="background:#FF8C00"></span><strong>Laranja</strong></td>
+            <td>Bobina A</td>
+            <td>Fase 1 — IN1 do driver</td>
+            <td><span class="pin pin-digital">OUT1</span></td>
+            <td>Primeiro fio após o vermelho.</td>
+        </tr>
+        <tr>
+            <td><span class="color-dot" style="background:#ECC94B; border:1px solid #ccc"></span><strong>Amarelo</strong></td>
+            <td>Bobina B</td>
+            <td>Fase 2 — IN2 do driver</td>
+            <td><span class="pin pin-digital">OUT2</span></td>
+            <td>Sequência natural do conector.</td>
+        </tr>
+        <tr>
+            <td><span class="color-dot" style="background:#F472B6"></span><strong>Rosa</strong></td>
+            <td>Bobina C</td>
+            <td>Fase 3 — IN3 do driver</td>
+            <td><span class="pin pin-digital">OUT3</span></td>
+            <td>Sequência natural do conector.</td>
+        </tr>
+        <tr>
+            <td><span class="color-dot" style="background:#60A5FA"></span><strong>Azul</strong></td>
+            <td>Bobina D</td>
+            <td>Fase 4 — IN4 do driver</td>
+            <td><span class="pin pin-digital">OUT4</span></td>
+            <td>Último fio do conector.</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="box box-tip">
+    <strong>✅ Plug and Play — Basta encaixar o conector!</strong>
+    O módulo ULN2003 já vem com o conector JST fêmea correspondente ao cabo do motor.
+    Basta encaixar com a trava voltada para cima. Não é necessário cruzar nenhum fio —
+    a ordem das bobinas é tratada <em>no código</em> pelo construtor
+    <code>Stepper(2048, 8, 10, 9, 11)</code>.
+</div>
+
 <h2>Diagrama de Conexões</h2>
 <div class="diagram-container">
-    <img src="esquema_eletrico.png" alt="Esquema de ligação elétrica do Pouso Lunar" style="width:100%; max-width:660px;">
+    <img src="esquema_eletrico.png" alt="Esquema de ligação elétrica do Pouso Lunar" style="width:100%; max-width:720px;">
     <div class="diagram-caption">
-        Figura 1 — Esquema Geral de Conexões (Arduino · Driver ULN2003 · Botão · LED · Buzzer · Fonte 5 V).
+        Figura 1 — Esquema Geral: Arduino → Driver ULN2003 → Motor 28BYJ-48 (com cores dos fios), Botão, LED, Buzzer e Fonte 5 V.
     </div>
 </div>
 
