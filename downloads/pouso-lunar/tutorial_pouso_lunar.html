@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia de Montagem — Projeto Pouso Lunar Interativo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* ======================================================
+           VARIÁVEIS GLOBAIS
+        ====================================================== */
+        :root {
+            --blue-dark:   #0F2C59;
+            --blue-mid:    #1A4A8A;
+            --blue-light:  #2B6CB0;
+            --blue-pale:   #EBF4FF;
+            --blue-border: #BEE3F8;
+            --accent:      #F6AD55;
+            --accent-dark: #C05621;
+            --green-dark:  #1C4532;
+            --green-mid:   #276749;
+            --green-light: #38A169;
+            --green-pale:  #F0FFF4;
+            --green-border:#C6F6D5;
+            --red-dark:    #742A2A;
+            --red-mid:     #C53030;
+            --red-light:   #E53E3E;
+            --red-pale:    #FFF5F5;
+            --red-border:  #FED7D7;
+            --gray-900:    #1A202C;
+            --gray-800:    #2D3748;
+            --gray-700:    #4A5568;
+            --gray-600:    #718096;
+            --gray-300:    #CBD5E0;
+            --gray-200:    #E2E8F0;
+            --gray-100:    #EDF2F7;
+            --gray-50:     #F7FAFC;
+            --white:       #FFFFFF;
+        }
+
+        /* ======================================================
+           RESET & BASE
+        ====================================================== */
+        *, *::before, *::after { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', 'Liberation Sans', Arial, sans-serif;
+            font-size: 10.5pt;
+            line-height: 1.65;
+            color: var(--gray-800);
+            background: var(--white);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* ======================================================
+           CONFIGURAÇÃO DE IMPRESSÃO (A4)
+        ====================================================== */
+        @page {
+            size: A4;
+            margin: 1.8cm 1.5cm 1.8cm 1.5cm;
+        }
+
+        @page :first { margin-top: 0; }
+
+        @media print {
+            body { font-size: 9.5pt; }
+            .no-print { display: none !important; }
+            a { color: inherit !important; text-decoration: none !important; }
+        }
+
+        /* ======================================================
+           CAPA
+        ====================================================== */
+        .cover {
+            page-break-after: always;
+            min-height: 26cm;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(160deg, var(--blue-dark) 0%, var(--blue-mid) 55%, #0d3b6e 100%);
+            color: var(--white);
+            text-align: center;
+            padding: 2cm 1.5cm;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Estrelas decorativas */
+        .cover::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px),
+                radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1px),
+                radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px);
+            background-size: 80px 80px, 120px 120px, 200px 200px;
+            background-position: 10px 10px, 40px 40px, 70px 15px;
+            pointer-events: none;
+        }
+
+        .cover-inner { position: relative; z-index: 1; max-width: 600px; }
+
+        .cover-badge {
+            display: inline-block;
+            background: rgba(246,173,85,0.15);
+            color: var(--accent);
+            border: 1px solid rgba(246,173,85,0.4);
+            padding: 5px 16px;
+            border-radius: 30px;
+            font-size: 8pt;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 2cm;
+        }
+
+        .cover-icon {
+            font-size: 64pt;
+            line-height: 1;
+            margin-bottom: 0.4cm;
+        }
+
+        .cover-title {
+            font-size: 28pt;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            line-height: 1.15;
+            margin: 0 0 0.3cm;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+        }
+
+        .cover-subtitle {
+            font-size: 13pt;
+            font-weight: 300;
+            color: rgba(255,255,255,0.75);
+            margin: 0 0 1.5cm;
+        }
+
+        .cover-divider {
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+            margin: 0 auto 1.5cm;
+            border-radius: 2px;
+        }
+
+        .cover-desc {
+            font-size: 10pt;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.7;
+            margin-bottom: 2cm;
+        }
+
+        .cover-meta-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+            width: 100%;
+        }
+
+        .cover-meta-item {
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.15);
+            border-radius: 10px;
+            padding: 12px 8px;
+        }
+
+        .cover-meta-label {
+            font-size: 7pt;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .cover-meta-value {
+            font-size: 8.5pt;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        /* ======================================================
+           CABEÇALHOS
+        ====================================================== */
+        .chapter {
+            page-break-before: always;
+        }
+
+        h1 {
+            font-size: 17pt;
+            font-weight: 800;
+            color: var(--blue-dark);
+            margin: 0 0 18px;
+            padding-bottom: 8px;
+            border-bottom: 3px solid var(--blue-light);
+            line-height: 1.2;
+        }
+
+        h1 .ch-num {
+            display: inline-block;
+            background: var(--blue-light);
+            color: var(--white);
+            font-size: 10pt;
+            font-weight: 700;
+            padding: 2px 9px;
+            border-radius: 20px;
+            margin-right: 8px;
+            vertical-align: middle;
+            letter-spacing: 0.5px;
+        }
+
+        h2 {
+            font-size: 12pt;
+            font-weight: 700;
+            color: var(--blue-mid);
+            margin: 22px 0 10px;
+            padding-bottom: 4px;
+            border-bottom: 1.5px solid var(--gray-200);
+        }
+
+        h3 {
+            font-size: 10.5pt;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin: 14px 0 6px;
+        }
+
+        p { margin: 0 0 10px; }
+
+        ul, ol {
+            margin: 0 0 12px;
+            padding-left: 22px;
+        }
+        li { margin-bottom: 5px; }
+
+        /* ======================================================
+           TABELAS
+        ====================================================== */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0 20px;
+            font-size: 9pt;
+        }
+
+        thead tr {
+            background: var(--blue-dark);
+            color: var(--white);
+        }
+
+        th {
+            text-align: left;
+            padding: 9px 10px;
+            font-size: 8.5pt;
+            font-weight: 700;
+            letter-spacing: 0.3px;
+            border: 1px solid var(--blue-mid);
+        }
+
+        td {
+            padding: 8px 10px;
+            border: 1px solid var(--gray-200);
+            vertical-align: middle;
+            line-height: 1.4;
+        }
+
+        tbody tr:nth-child(even) td { background: var(--gray-50); }
+        tbody tr:hover td { background: var(--blue-pale); }
+
+        /* ======================================================
+           BADGES DE PINO
+        ====================================================== */
+        .pin {
+            display: inline-block;
+            font-family: 'JetBrains Mono', 'Liberation Mono', monospace;
+            font-size: 8pt;
+            font-weight: 600;
+            padding: 2px 7px;
+            border-radius: 4px;
+            border: 1px solid;
+            white-space: nowrap;
+        }
+
+        .pin-digital {
+            background: #FFF5F5;
+            color: var(--red-mid);
+            border-color: var(--red-border);
+        }
+
+        .pin-gnd {
+            background: var(--gray-100);
+            color: var(--gray-800);
+            border-color: var(--gray-300);
+        }
+
+        .pin-vcc {
+            background: #FFF9E6;
+            color: #744210;
+            border-color: #F6E05E;
+        }
+
+        /* ======================================================
+           CAIXAS DE DESTAQUE
+        ====================================================== */
+        .box {
+            padding: 11px 14px;
+            border-radius: 7px;
+            margin: 12px 0;
+            font-size: 9.5pt;
+            page-break-inside: avoid;
+        }
+
+        .box strong:first-child {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .box-note {
+            background: var(--blue-pale);
+            border-left: 4px solid var(--blue-light);
+            color: var(--blue-dark);
+        }
+
+        .box-warning {
+            background: var(--red-pale);
+            border-left: 4px solid var(--red-light);
+            color: var(--red-dark);
+        }
+
+        .box-tip {
+            background: var(--green-pale);
+            border-left: 4px solid var(--green-light);
+            color: var(--green-dark);
+        }
+
+        .box-accent {
+            background: #FFFBEB;
+            border-left: 4px solid var(--accent);
+            color: #744210;
+        }
+
+        /* ======================================================
+           CÓDIGO
+        ====================================================== */
+        pre {
+            background: var(--gray-900);
+            color: #E2E8F0;
+            border-radius: 7px;
+            padding: 12px 14px;
+            font-family: 'JetBrains Mono', 'Liberation Mono', monospace;
+            font-size: 8.5pt;
+            white-space: pre-wrap;
+            margin: 10px 0 16px;
+            page-break-inside: avoid;
+            border: none;
+        }
+
+        pre .cm { color: #68D391; }   /* comment */
+        pre .kw { color: #F6AD55; }   /* keyword */
+        pre .ty { color: #63B3ED; }   /* type */
+        pre .fn { color: #FBD38D; }   /* function */
+        pre .nm { color: #FC8181; }   /* number/const */
+        pre .st { color: #9AE6B4; }   /* string */
+
+        code {
+            font-family: 'JetBrains Mono', 'Liberation Mono', monospace;
+            background: var(--gray-100);
+            color: var(--red-mid);
+            padding: 1px 5px;
+            border-radius: 4px;
+            font-size: 8pt;
+            border: 1px solid var(--gray-200);
+        }
+
+        /* ======================================================
+           DIAGRAMA / IMAGENS
+        ====================================================== */
+        .diagram-container {
+            text-align: center;
+            margin: 16px 0;
+            page-break-inside: avoid;
+        }
+
+        .diagram-container img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid var(--gray-300);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .diagram-caption {
+            font-size: 8.5pt;
+            color: var(--gray-600);
+            font-style: italic;
+            margin-top: 7px;
+        }
+
+        /* ======================================================
+           GRADE DE CONEXÃO (visual de fiação)
+        ====================================================== */
+        .wiring-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 14px 0;
+        }
+
+        .wire-card {
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            padding: 10px 12px;
+            background: var(--white);
+            page-break-inside: avoid;
+        }
+
+        .wire-card-title {
+            font-size: 8.5pt;
+            font-weight: 700;
+            color: var(--gray-700);
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .wire-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .wire-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 0;
+            border-bottom: 1px dashed var(--gray-200);
+            font-size: 8.5pt;
+        }
+
+        .wire-row:last-child { border-bottom: none; }
+
+        .wire-from {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            font-size: 8pt;
+        }
+
+        .wire-arrow { color: var(--gray-400); font-size: 10pt; }
+
+        .wire-to {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            font-size: 8pt;
+            color: var(--blue-mid);
+        }
+
+        /* ======================================================
+           PASSO-A-PASSO
+        ====================================================== */
+        .steps { counter-reset: step; list-style: none; padding: 0; margin: 0 0 16px; }
+
+        .steps li {
+            counter-increment: step;
+            display: flex;
+            gap: 12px;
+            margin-bottom: 12px;
+            page-break-inside: avoid;
+        }
+
+        .steps li::before {
+            content: counter(step);
+            flex-shrink: 0;
+            width: 26px;
+            height: 26px;
+            background: var(--blue-light);
+            color: var(--white);
+            font-weight: 700;
+            font-size: 9pt;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 1px;
+        }
+
+        .steps li > div { flex: 1; }
+
+        /* ======================================================
+           TABELA TROUBLESHOOT
+        ====================================================== */
+        .trouble-table th:first-child { width: 30%; }
+        .trouble-table th:nth-child(2) { width: 35%; }
+        .trouble-table th:last-child { width: 35%; }
+
+        .symptom { font-weight: 600; color: var(--red-mid); }
+        .cause   { color: var(--gray-700); }
+        .fix     { color: var(--green-dark); }
+
+        /* ======================================================
+           RODAPÉ DE PÁGINA (visível ao imprimir)
+        ====================================================== */
+        .page-footer {
+            border-top: 1px solid var(--gray-200);
+            margin-top: 24px;
+            padding-top: 8px;
+            font-size: 7.5pt;
+            color: var(--gray-600);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        /* ======================================================
+           UTILITÁRIOS
+        ====================================================== */
+        .text-center { text-align: center; }
+        .mt-0 { margin-top: 0; }
+        .mb-0 { margin-bottom: 0; }
+        .avoid-break { page-break-inside: avoid; }
+
+        /* Cor de fio na tabela */
+        .color-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 1px solid rgba(0,0,0,0.2);
+            margin-right: 4px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ============================================================
+     CAPA
+============================================================ -->
+<div class="cover">
+    <div class="cover-inner">
+        <div class="cover-badge">Mostra de Ciências &amp; Tecnologia</div>
+
+        <div class="cover-icon">🚀</div>
+
+        <h1 class="cover-title">Guia de Montagem<br>e Fiação</h1>
+        <p class="cover-subtitle">Projeto Interativo — Pouso do Módulo Lunar</p>
+
+        <div class="cover-divider"></div>
+
+        <p class="cover-desc">
+            Instruções completas para fiação eletrônica, programação do Arduino e montagem
+            mecânica do módulo lunar guiado por trilho de PVC com propulsor ativo.
+        </p>
+
+        <div class="cover-meta-grid">
+            <div class="cover-meta-item">
+                <div class="cover-meta-label">Público-Alvo</div>
+                <div class="cover-meta-value">EF II &amp; Ensino Médio</div>
+            </div>
+            <div class="cover-meta-item">
+                <div class="cover-meta-label">Plataforma</div>
+                <div class="cover-meta-value">Arduino Uno R3</div>
+            </div>
+            <div class="cover-meta-item">
+                <div class="cover-meta-label">Nível</div>
+                <div class="cover-meta-value">Intermediário</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ============================================================
+     CAPÍTULO 1 — VISÃO GERAL
+============================================================ -->
+<div class="chapter">
+<h1><span class="ch-num">1</span> Visão Geral do Experimento</h1>
+
+<p>
+    O <strong>Pouso Lunar Interativo</strong> é uma maquete funcional que simula o histórico
+    pouso do Módulo Lunar (LEM) na Lua. Os estudantes e visitantes da feira assumem o papel de
+    piloto, controlando os propulsores através de um botão físico para realizar um
+    <strong>pouso suave</strong> — velocidade de impacto menor que 2,5&nbsp;m/s simulados.
+</p>
+
+<div class="box box-note">
+    <strong>Como Funciona Fisicamente?</strong>
+    O módulo lunar (impresso em 3D) desliza em um trilho de cano de PVC.
+    Um <strong>motor de passo 28BYJ-48</strong> no topo do trilho usa um carretel
+    para enrolar/desenrolar uma linha de nylon. A gravidade lunar simulada faz o
+    módulo descer gradualmente; ao pressionar o botão <em>Thrust</em>, um LED
+    laranja na base acende (simulando fogo) e o Arduino reverte o motor para
+    reduzir a velocidade — ou até subir o módulo.
+</div>
+
+<h2>A Física por Trás do Código</h2>
+<p>
+    O firmware executa em tempo real as equações de movimento pelo método de
+    <strong>Integração de Euler</strong> a cada iteração do <code>loop()</code>:
+</p>
+
+<table class="avoid-break">
+    <thead>
+        <tr>
+            <th style="width:28%">Variável</th>
+            <th style="width:32%">Equação no Código</th>
+            <th>Significado</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>Aceleração</strong></td>
+            <td><code>a = GRAVIDADE − EMPUXO</code></td>
+            <td>1,62 m/s² (lunar). Com botão: subtrai 3,50 m/s² de empuxo.</td>
+        </tr>
+        <tr>
+            <td><strong>Velocidade</strong></td>
+            <td><code>vel += a × dt</code></td>
+            <td>Acumulada a cada frame. Positiva = descendo.</td>
+        </tr>
+        <tr>
+            <td><strong>Altitude</strong></td>
+            <td><code>alt −= vel × dt</code></td>
+            <td>De 100 % (topo) até 0 % (chão). Mapeada para passos do motor.</td>
+        </tr>
+        <tr>
+            <td><strong>Combustível</strong></td>
+            <td><code>fuel −= 15 × dt</code></td>
+            <td>Inicia em 100 %. Quando zerado, empuxo é cortado.</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="box box-tip">
+    <strong>Objetivo Educativo</strong>
+    Demonstrar aplicação direta da física newtoniana (força, aceleração, velocidade,
+    posição) associada à eletrônica e à programação de microcontroladores de forma
+    lúdica e imersiva.
+</div>
+
+<h2>Estados do Jogo</h2>
+<div class="wiring-grid">
+    <div class="wire-card">
+        <div class="wire-card-title"><span class="wire-dot" style="background:#A0AEC0"></span>PREPARANDO</div>
+        <p style="margin:0;font-size:9pt">Aguarda o primeiro pressionamento do botão para iniciar a descida.</p>
+    </div>
+    <div class="wire-card">
+        <div class="wire-card-title"><span class="wire-dot" style="background:#4299E1"></span>DESCENTE</div>
+        <p style="margin:0;font-size:9pt">Física ativa. Motor em movimento. Botão controla empuxo.</p>
+    </div>
+    <div class="wire-card">
+        <div class="wire-card-title"><span class="wire-dot" style="background:#38A169"></span>POUSOU_SUAVE</div>
+        <p style="margin:0;font-size:9pt">Velocidade de impacto ≤ 2,5 m/s. Melodia de vitória.</p>
+    </div>
+    <div class="wire-card">
+        <div class="wire-card-title"><span class="wire-dot" style="background:#E53E3E"></span>COLIDIU / REBOBINANDO</div>
+        <p style="margin:0;font-size:9pt">Impacto acima do limite → som de explosão → motor rebobina para o topo.</p>
+    </div>
+</div>
+
+<div class="page-footer">
+    <span>Projeto Pouso Lunar Interativo — Guia de Montagem e Fiação</span>
+    <span>Capítulo 1 de 6</span>
+</div>
+</div>
+
+
+<!-- ============================================================
+     CAPÍTULO 2 — COMPONENTES
+============================================================ -->
+<div class="chapter">
+<h1><span class="ch-num">2</span> Lista de Componentes Eletrônicos</h1>
+<p>
+    Certifique-se de ter todos os componentes antes de iniciar a montagem.
+    Cada item será conectado ao Arduino Uno R3 ou ao driver de motor.
+</p>
+
+<table>
+    <thead>
+        <tr>
+            <th style="width:28%">Componente</th>
+            <th style="width:42%">Função no Projeto</th>
+            <th>Especificações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><strong>Arduino Uno R3</strong></td>
+            <td>Processa cálculos físicos, lê o botão e controla motor, LED e buzzer.</td>
+            <td>Também pode ser Arduino Nano (5 V).</td>
+        </tr>
+        <tr>
+            <td><strong>Motor de Passo 28BYJ-48</strong></td>
+            <td>Gera rotação precisa para enrolar/desenrolar a linha do módulo.</td>
+            <td>5 V DC · 2048 passos/volta · unipolar 4 fases.</td>
+        </tr>
+        <tr>
+            <td><strong>Driver ULN2003</strong></td>
+            <td>Fornece corrente suficiente para acionar as bobinas do motor.</td>
+            <td>Módulo com 4 LEDs indicadores de bobina. Conectores JST já incluídos.</td>
+        </tr>
+        <tr>
+            <td><strong>Botão Arcade (Fliperama)</strong></td>
+            <td>Ativa o propulsor (Thrust). Robusto para muitos acionamentos.</td>
+            <td>Tipo NA (Normalmente Aberto). Conexão direta pino + GND.</td>
+        </tr>
+        <tr>
+            <td><strong>LED Difuso Laranja/Vermelho</strong></td>
+            <td>Simula o escapamento de fogo na base do módulo lunar.</td>
+            <td>Alto brilho, 5 mm ou 10 mm.</td>
+        </tr>
+        <tr>
+            <td><strong>Resistor 220 Ω</strong></td>
+            <td>Limita a corrente do pino digital para o LED.</td>
+            <td>Código: Vermelho–Vermelho–Marrom–Dourado (tolerância 5 %).</td>
+        </tr>
+        <tr>
+            <td><strong>Buzzer Passivo</strong></td>
+            <td>Reproduz efeitos sonoros via <code>tone()</code>: propulsor, vitória, explosão.</td>
+            <td>Frequência de trabalho: 100 Hz – 10 kHz.</td>
+        </tr>
+        <tr>
+            <td><strong>Fonte Externa 5 V / 1 A</strong></td>
+            <td>Alimenta exclusivamente o driver do motor para evitar resets no Arduino.</td>
+            <td>Fonte USB de celular, powerbank ou 4 pilhas AA em série.</td>
+        </tr>
+        <tr>
+            <td><strong>Fios Jumper</strong></td>
+            <td>Interligam todos os componentes.</td>
+            <td>Macho–Macho e Macho–Fêmea (mínimo 20 unidades).</td>
+        </tr>
+        <tr>
+            <td><strong>Protoboard</strong></td>
+            <td>Base para organizar as conexões sem solda.</td>
+            <td>830 pontos (recomendado) ou 400 pontos.</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="box box-warning">
+    <strong>⚠ Atenção com a Alimentação do Motor!</strong>
+    O motor de passo consome picos de corrente que podem causar quedas de tensão no Arduino,
+    resultando em resets aleatórios. <strong>Nunca alimente o driver ULN2003 diretamente
+    do pino 5&nbsp;V do Arduino.</strong> Use sempre uma fonte externa independente e
+    conecte o GND da fonte ao GND do Arduino (terra comum).
+</div>
+
+<div class="page-footer">
+    <span>Projeto Pouso Lunar Interativo — Guia de Montagem e Fiação</span>
+    <span>Capítulo 2 de 6</span>
+</div>
+</div>
+
+
+<!-- ============================================================
+     CAPÍTULO 3 — ESQUEMA ELÉTRICO
+============================================================ -->
+<div class="chapter">
+<h1><span class="ch-num">3</span> Esquema de Ligação Eletrônica</h1>
+<p>
+    Siga a tabela de conexões abaixo <strong>rigorosamente</strong>.
+    Os pinos do Arduino devem bater exatamente com os declarados no firmware
+    para o projeto funcionar corretamente.
+</p>
+
+<h2>Tabela Completa de Conexões</h2>
+<table>
+    <thead>
+        <tr>
+            <th style="width:26%">Componente</th>
+            <th style="width:20%">Terminal</th>
+            <th style="width:20%">Pino Arduino</th>
+            <th>Observações</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Motor / Driver -->
+        <tr>
+            <td rowspan="6"><strong>Driver ULN2003<br>(Motor 28BYJ-48)</strong></td>
+            <td>IN1</td>
+            <td><span class="pin pin-digital">D8</span></td>
+            <td rowspan="4">
+                Ordem exata do construtor no código:
+                <code>Stepper motor(2048, <b>8, 10, 9, 11</b>)</code>.
+                <br>Não trocar D9 e D10!
+            </td>
+        </tr>
+        <tr>
+            <td>IN2</td>
+            <td><span class="pin pin-digital">D10</span></td>
+        </tr>
+        <tr>
+            <td>IN3</td>
+            <td><span class="pin pin-digital">D9</span></td>
+        </tr>
+        <tr>
+            <td>IN4</td>
+            <td><span class="pin pin-digital">D11</span></td>
+        </tr>
+        <tr>
+            <td>VCC (+)</td>
+            <td><span class="pin pin-vcc">Fonte 5V +</span></td>
+            <td>Fonte <strong>externa</strong>. Nunca usar o 5V do Arduino!</td>
+        </tr>
+        <tr>
+            <td>GND (−)</td>
+            <td><span class="pin pin-gnd">GND Comum</span></td>
+            <td>GND da fonte externa <strong>e</strong> GND do Arduino juntos.</td>
+        </tr>
+        <!-- Botão -->
+        <tr>
+            <td rowspan="2"><strong>Botão Arcade<br>(Propulsor)</strong></td>
+            <td>Terminal 1</td>
+            <td><span class="pin pin-digital">D2</span></td>
+            <td>Pino configurado como <code>INPUT_PULLUP</code>. Sem resistor externo.</td>
+        </tr>
+        <tr>
+            <td>Terminal 2</td>
+            <td><span class="pin pin-gnd">GND</span></td>
+            <td>Ao pressionar, o pino lê <code>LOW</code> (ativa propulsão).</td>
+        </tr>
+        <!-- LED -->
+        <tr>
+            <td rowspan="2"><strong>LED Fogo<br>(Módulo Lunar)</strong></td>
+            <td>Anodo (+) via R=220Ω</td>
+            <td><span class="pin pin-digital">D7</span></td>
+            <td>Resistor em série com a perna longa do LED.</td>
+        </tr>
+        <tr>
+            <td>Catodo (−)</td>
+            <td><span class="pin pin-gnd">GND</span></td>
+            <td>Perna mais curta do LED direto ao GND.</td>
+        </tr>
+        <!-- Buzzer -->
+        <tr>
+            <td rowspan="2"><strong>Buzzer Passivo</strong></td>
+            <td>Positivo (+)</td>
+            <td><span class="pin pin-digital">D6</span></td>
+            <td>Terminal marcado com <code>+</code> no corpo do buzzer.</td>
+        </tr>
+        <tr>
+            <td>Negativo (−)</td>
+            <td><span class="pin pin-gnd">GND</span></td>
+            <td>Terminal sem marcação ou marcado com <code>−</code>.</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="box box-warning">
+    <strong>⚠ Atenção — Pinos D9 e D10 NÃO são sequenciais no driver!</strong>
+    O construtor <code>Stepper(2048, 8, 10, 9, 11)</code> inverte logicamente D9 e D10 para
+    garantir a sequência correta de acionamento das bobinas do 28BYJ-48.
+    Na prática física: <strong>D10 → IN2</strong> e <strong>D9 → IN3</strong>.
+    Trocar esses dois fios fará o motor vibrar sem girar ou girar de forma irregular.
+</div>
+
+<h2>Diagrama de Conexões</h2>
+<div class="diagram-container">
+    <img src="esquema_eletrico.png" alt="Esquema de ligação elétrica do Pouso Lunar" style="width:100%; max-width:660px;">
+    <div class="diagram-caption">
+        Figura 1 — Esquema Geral de Conexões (Arduino · Driver ULN2003 · Botão · LED · Buzzer · Fonte 5 V).
+    </div>
+</div>
+
+<div class="page-footer">
+    <span>Projeto Pouso Lunar Interativo — Guia de Montagem e Fiação</span>
+    <span>Capítulo 3 de 6</span>
+</div>
+</div>
+
+
+<!-- ============================================================
+     CAPÍTULO 4 — DETALHES DE PROGRAMAÇÃO
+============================================================ -->
+<div class="chapter">
+<h1><span class="ch-num">4</span> Detalhes Cruciais de Programação</h1>
+
+<h2>O Segredo do Motor de Passo 28BYJ-48</h2>
+<p>
+    O 28BYJ-48 é um motor unipolar de 4 fases que exige uma sequência específica de
+    acionamento das suas bobinas internas. Usando a biblioteca <code>Stepper.h</code>
+    com os pinos na ordem físicamente sequencial (8, 9, 10, 11), o motor pode
+    <strong>vibrar, esquentar ou não girar</strong>.
+</p>
+<p>
+    A solução é declarar o construtor com a ordem <strong>intercalada</strong>
+    <code>8, 10, 9, 11</code>:
+</p>
+
+<pre><span class="cm">// Pinos ao Driver ULN2003: IN1=D8  IN2=D10  IN3=D9  IN4=D11</span>
+<span class="cm">// A inversão de D9 e D10 no construtor é INTENCIONAL — corrige</span>
+<span class="cm">// a sequência de fases do 28BYJ-48 com a Stepper.h padrão.</span>
+<span class="kw">const</span> <span class="ty">int</span> PASSOS_POR_VOLTA = <span class="nm">2048</span>;
+Stepper meuMotor(PASSOS_POR_VOLTA, <span class="nm">8</span>, <span class="nm">10</span>, <span class="nm">9</span>, <span class="nm">11</span>);</pre>
+
+<div class="wiring-grid">
+    <div class="wire-card avoid-break">
+        <div class="wire-card-title">
+            <span class="wire-dot" style="background:#48BB78"></span>
+            Motor — Fiação Física
+        </div>
+        <div class="wire-row">
+            <span class="wire-from" style="color:#48BB78">Arduino D8</span>
+            <span class="wire-arrow">→</span>
+            <span class="wire-to">Driver IN1</span>
+        </div>
+        <div class="wire-row">
+            <span class="wire-from" style="color:#63B3ED">Arduino D10</span>
+            <span class="wire-arrow">→</span>
+            <span class="wire-to">Driver IN2</span>
+        </div>
+        <div class="wire-row">
+            <span class="wire-from" style="color:#4299E1">Arduino D9</span>
+            <span class="wire-arrow">→</span>
+            <span class="wire-to">Driver IN3</span>
+        </div>
+        <div class="wire-row">
+            <span class="wire-from" style="color:#9F7AEA">Arduino D11</span>
+            <span class="wire-arrow">→</span>
+            <span class="wire-to">Driver IN4</span>
+        </div>
+    </div>
+    <div class="wire-card avoid-break">
+        <div class="wire-card-title">
+            <span class="wire-dot" style="background:#E53E3E"></span>
+            Periféricos — Fiação Física
+        </div>
+        <div class="wire-row">
+            <span class="wire-from" style="color:#E53E3E">Arduino D2</span>
+            <span class="wire-arrow">→</span>
+            <span class="wire-to">Botão T1</span>
+        </div>
+        <div class="wire-row">
+            <span class="wire-from" style="color:#718096">GND Arduino</span>
+            <span class="wire-arrow">→</span>
+            <span class="wire-to">Botão T2</span>
+        </div>
+        <div class="wire-row">
+            <span class="wire-from" style="color:#ED8936">Arduino D6</span>
+            <span class="wire-arrow">→</span>
+            <span class="wire-to">Buzzer (+)</span>
+        </div>
+        <div class="wire-row">
+            <span class="wire-from" style="color:#ECC94B">Arduino D7</span>
+            <span class="wire-arrow">→</span>
+            <span class="wire-to">R 220Ω → LED (+)</span>
+        </div>
+    </div>
+</div>
+
+<h2>Resistor de Pull-Up Interno (Botão Sem Resistor Externo)</h2>
+<p>
+    Em vez de usar um resistor externo de 10 kΩ para estabilizar o pino do botão,
+    ativamos o <strong>pull-up interno</strong> do ATmega diretamente no firmware:
+</p>
+
+<pre>pinMode(PIN_BOTAO_PROPULSOR, <span class="nm">INPUT_PULLUP</span>);  <span class="cm">// Pino 2 puxado internamente a 5V</span></pre>
+
+<p>
+    Com isso, o pino 2 mantém-se em nível <code>HIGH</code> (5 V) quando o botão
+    está solto. Ao pressionar, o circuito é fechado ao GND e o Arduino lê
+    <code>LOW</code> — ativando o empuxo.
+</p>
+
+<div class="box box-warning">
+    <strong>⚠ Nunca conecte o botão ao +5 V!</strong>
+    Uma extremidade vai ao Pino 2 e a outra ao GND. Se por acidente o pino
+    for configurado como saída em nível LOW e o botão conectado ao +5 V,
+    ocorrerá um curto-circuito que pode danificar permanentemente o Arduino.
+</div>
+
+<h2>Calibração do Curso do Motor</h2>
+<p>
+    A constante <code>PASSOS_CURSO_TOTAL</code> define quantos passos o motor
+    precisa dar para mover o módulo do topo até o chão físico.
+    Calcule conforme o comprimento do seu trilho e o diâmetro do carretel:
+</p>
+
+<pre><span class="cm">// Fórmula: comprimento_trilho_mm / (π × diâmetro_carretel_mm) × 2048</span>
+<span class="cm">// Exemplo (trilho = 1 m, carretel ∅ = 16 mm):</span>
+<span class="cm">// 1000 / (3,14159 × 16) ≈ 19,9 voltas → 19,9 × 2048 ≈ 40755 passos</span>
+<span class="kw">const</span> <span class="ty">long</span> PASSOS_CURSO_TOTAL = <span class="nm">8192</span>;  <span class="cm">// Ajuste aqui!</span></pre>
+
+<div class="page-footer">
+    <span>Projeto Pouso Lunar Interativo — Guia de Montagem e Fiação</span>
+    <span>Capítulo 4 de 6</span>
+</div>
+</div>
+
+
+<!-- ============================================================
+     CAPÍTULO 5 — MONTAGEM MECÂNICA
+============================================================ -->
+<div class="chapter">
+<h1><span class="ch-num">5</span> Estrutura Mecânica com Cano de PVC</h1>
+<p>
+    A mecânica é o que dará o aspecto realista e interativo ao experimento.
+    Abaixo estão as diretrizes de montagem física usando materiais de fácil acesso.
+</p>
+
+<div class="diagram-container">
+    <img src="esquema_mecanico.png" alt="Esquema mecânico do trilho de PVC" style="width:72%; max-width:420px;">
+    <div class="diagram-caption">
+        Figura 2 — Esquema Mecânico: trilho de PVC, carretel, motor e guias do módulo.
+    </div>
+</div>
+
+<h2>Instruções Passo a Passo</h2>
+<ol class="steps">
+    <li>
+        <div>
+            <strong>Trilho de PVC</strong><br>
+            Use um cano rígido de ¾″ (~25 mm Ø) ou 1″ (~32 mm Ø) com 1 a 1,5 m de
+            comprimento. Lixe a superfície externa para remover imperfeições e
+            reduzir o atrito das guias do módulo.
+        </div>
+    </li>
+    <li>
+        <div>
+            <strong>Suporte do Motor no Topo</strong><br>
+            Imprima em 3D uma tampa ("cap") com encaixe para o motor, ou fixe-o
+            com braçadeiras de nylon e cola quente rígida. O eixo do motor deve
+            ficar perfeitamente alinhado ao centro do cano.
+        </div>
+    </li>
+    <li>
+        <div>
+            <strong>Carretel (Spool)</strong><br>
+            Imprima um carretel que se acople ao eixo D-shaft do 28BYJ-48.
+            Alternativa: carretel plástico de linha de costura colado com epóxi.
+            Enrole 2 a 3 voltas de linha de nylon para garantir a ancoragem.
+        </div>
+    </li>
+    <li>
+        <div>
+            <strong>Módulo Lunar e Guias</strong><br>
+            O módulo 3D deve ter duas guias circulares na face traseira abraçando
+            o cano. O diâmetro interno das guias deve ser 1–2 mm maior que o Ø
+            externo do cano para deslizamento suave sem folga excessiva.
+        </div>
+    </li>
+    <li>
+        <div>
+            <strong>Ajuste de Peso (Gravidade Física)</strong><br>
+            O motor libera a linha; a queda é puramente gravitacional. Se o
+            módulo for leve demais, o atrito das guias e dos fios impedirá a
+            descida. Adicione pesos (moedas, arruelas, chumbinho de pesca) dentro
+            da estrutura impressa até o módulo descer livremente ao soltar a linha.
+        </div>
+    </li>
+    <li>
+        <div>
+            <strong>Fiação Móvel do LED</strong><br>
+            Os fios do LED sobem junto com o módulo. Use cabos finos e flexíveis
+            (fios esmaltados de cobre, cabo de fone antigo). Faça uma espiral
+            solta abaixo do módulo para que haja folga suficiente em todas as
+            posições sem puxar ou enroscar.
+        </div>
+    </li>
+    <li>
+        <div>
+            <strong>Base e Fixação do Trilho</strong><br>
+            Apoie o cano de PVC em um suporte de madeira ou use um tripé fotográfico
+            com adaptador impresso. A base deve ser estável o suficiente para não
+            tombar quando os visitantes pressionarem o botão com entusiasmo.
+        </div>
+    </li>
+</ol>
+
+<div class="box box-accent">
+    <strong>💡 Dica de Efeito Visual</strong>
+    Coloque fita LED azul ao redor do trilho de PVC (simulando o espaço sideral)
+    e use papel escuro com estrelas recortadas como fundo. O impacto visual na
+    Mostra de Ciências será muito maior!
+</div>
+
+<div class="page-footer">
+    <span>Projeto Pouso Lunar Interativo — Guia de Montagem e Fiação</span>
+    <span>Capítulo 5 de 6</span>
+</div>
+</div>
+
+
+<!-- ============================================================
+     CAPÍTULO 6 — TESTES E RESOLUÇÃO DE PROBLEMAS
+============================================================ -->
+<div class="chapter">
+<h1><span class="ch-num">6</span> Comissionamento e Resolução de Problemas</h1>
+<p>
+    Após concluir a fiação e a montagem mecânica, siga o roteiro de testes
+    antes de apresentar o projeto ao público.
+</p>
+
+<h2>Roteiro de Testes</h2>
+<ol class="steps">
+    <li>
+        <div>
+            <strong>Energize e observe o Monitor Serial</strong><br>
+            Abra o Monitor Serial (9600 baud). Deve aparecer
+            <code>"--- POUSO LUNAR INICIADO ---"</code> e a melodia de início
+            no buzzer. Caso contrário, verifique o cabo USB e a porta COM selecionada.
+        </div>
+    </li>
+    <li>
+        <div>
+            <strong>Teste do Botão</strong><br>
+            Com o módulo na posição de topo, pressione o botão uma vez.
+            O monitor deve exibir <code>"Descendo..."</code> e o motor deve começar
+            a girar soltando a linha. Pressionar continuamente deve reduzir a velocidade
+            e acender o LED de fogo.
+        </div>
+    </li>
+    <li>
+        <div>
+            <strong>Teste do Sentido de Rotação</strong><br>
+            Se o motor puxar a linha para cima ao invés de soltá-la, troque fisicamente
+            os conectores IN1↔IN4 e IN2↔IN3 no driver, ou inverta o sinal
+            no código alterando a ordem dos pinos para <code>11, 9, 10, 8</code>.
+        </div>
+    </li>
+    <li>
+        <div>
+            <strong>Teste de Fim de Jogo</strong><br>
+            Deixe o módulo pousar com velocidade baixa (botão pressionado no final):
+            deve tocar melodia de vitória. Deixe cair livremente: deve tocar som de
+            explosão. Em ambos os casos, o motor deve rebobinar sozinho ao topo.
+        </div>
+    </li>
+    <li>
+        <div>
+            <strong>Calibre o Curso</strong><br>
+            Ajuste <code>PASSOS_CURSO_TOTAL</code> no código até o módulo
+            chegar fisicamente ao chão exatamente quando a altitude simulada
+            atinge zero.
+        </div>
+    </li>
+</ol>
+
+<h2>Tabela de Resolução de Problemas</h2>
+<table class="trouble-table">
+    <thead>
+        <tr>
+            <th>Sintoma / Falha</th>
+            <th>Causa Provável</th>
+            <th>Solução</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="symptom">Motor apenas vibra e não gira.</td>
+            <td class="cause">Sequência de bobinas incorreta ou GND da fonte não conectado ao GND do Arduino.</td>
+            <td class="fix">Confirme D8→IN1, D10→IN2, D9→IN3, D11→IN4. Junte os GNDs.</td>
+        </tr>
+        <tr>
+            <td class="symptom">Motor gira na direção errada (sobe em vez de descer).</td>
+            <td class="cause">Motor montado de cabeça para baixo ou pinos em ordem invertida.</td>
+            <td class="fix">Inverta a montagem física do motor ou troque a ordem dos pinos no construtor <code>Stepper</code>.</td>
+        </tr>
+        <tr>
+            <td class="symptom">Arduino reinicia aleatoriamente ao girar o motor.</td>
+            <td class="cause">Queda de tensão — motor sendo alimentado pelo 5V do Arduino.</td>
+            <td class="fix">Conecte VCC do driver a uma fonte externa de 5V independente.</td>
+        </tr>
+        <tr>
+            <td class="symptom">Módulo trava no meio do trilho e não desce.</td>
+            <td class="cause">Atrito excessivo nas guias ou módulo muito leve.</td>
+            <td class="fix">Aplique cera ou spray de silicone no cano. Adicione pesos metálicos ao módulo.</td>
+        </tr>
+        <tr>
+            <td class="symptom">Botão não responde ou empuxo permanece ligado.</td>
+            <td class="cause">Falha de conexão no pino D2 ou protoboard com curto.</td>
+            <td class="fix">Verifique D2 → Botão T1 e GND → Botão T2. Confirme <code>INPUT_PULLUP</code> no firmware.</td>
+        </tr>
+        <tr>
+            <td class="symptom">LED não acende ao pressionar o botão.</td>
+            <td class="cause">Polaridade invertida ou resistor ausente.</td>
+            <td class="fix">Verifique o resistor 220Ω em série com o anodo (perna longa). Catodo ao GND.</td>
+        </tr>
+        <tr>
+            <td class="symptom">Buzzer não emite som ou emite som constante.</td>
+            <td class="cause">Buzzer ativo conectado ao invés de passivo, ou polaridade invertida.</td>
+            <td class="fix">Use buzzer passivo (sem oscilador interno). Verifique positivo ao D6 e negativo ao GND.</td>
+        </tr>
+        <tr>
+            <td class="symptom">Módulo não para no chão (ultrapassa ou para antes).</td>
+            <td class="cause">Valor de <code>PASSOS_CURSO_TOTAL</code> incorreto.</td>
+            <td class="fix">Meça o curso real e recalcule: <code>voltas × 2048 passos</code>.</td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="box box-tip">
+    <strong>🏆 Dica para a Mostra de Ciências</strong>
+    Monte uma tabela de recordes ao lado do experimento listando os pilotos com
+    menor velocidade de pouso e maior combustível restante. Isso incentiva a
+    competição saudável e mantém o público engajado por mais tempo!
+</div>
+
+<div class="box box-note" style="margin-top:14px">
+    <strong>📁 Arquivos do Projeto</strong>
+    <ul style="margin:6px 0 0; padding-left:18px">
+        <li><code>pouso_lunar.ino</code> — Firmware completo do Arduino</li>
+        <li><code>esquema_eletrico.svg / .png</code> — Diagrama de conexões</li>
+        <li><code>esquema_mecanico.svg / .png</code> — Diagrama mecânico do trilho</li>
+        <li><code>tutorial_pouso_lunar.html / .pdf</code> — Esta documentação</li>
+    </ul>
+</div>
+
+<div class="page-footer">
+    <span>Projeto Pouso Lunar Interativo — Guia de Montagem e Fiação</span>
+    <span>Capítulo 6 de 6</span>
+</div>
+</div>
+
+</body>
+</html>
