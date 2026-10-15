@@ -1,0 +1,3 @@
+# o Jogabilidoom mora no blog (servidor ax3)
+/jogabilidoom    https://blog.profevine.com.br/jogabilidoom/          301!
+/jogabilidoom/*  https://blog.profevine.com.br/jogabilidoom/:splat   301!
