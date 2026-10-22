@@ -1,52 +1,12 @@
 /**
  * Professor Vine - Main JavaScript
- * Funcionalidades: Dark mode, citações nerd, sistema de abas,
+ * Funcionalidades: citações nerd, sistema de abas,
  * voltar ao topo, ano dinâmico e animações on-scroll
+ * (o tema claro/escuro fica em js/theme.js, igual ao blog)
  */
 
 (function() {
     'use strict';
-
-    // --- Dark Mode Toggle ---
-    const THEME_KEY = 'profevine-theme';
-
-    function initTheme() {
-        const savedTheme = localStorage.getItem(THEME_KEY);
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const theme = savedTheme || (prefersDark ? 'dark' : 'light');
-        setTheme(theme);
-    }
-
-    function setTheme(theme) {
-        document.documentElement.setAttribute('data-theme', theme);
-        localStorage.setItem(THEME_KEY, theme);
-        updateToggleButton(theme);
-        // Atualiza meta theme-color
-        updateMetaThemeColor(theme);
-    }
-
-    function toggleTheme() {
-        const current = document.documentElement.getAttribute('data-theme');
-        const newTheme = current === 'dark' ? 'light' : 'dark';
-        setTheme(newTheme);
-    }
-
-    function updateToggleButton(theme) {
-        const btn = document.getElementById('theme-toggle');
-        if (!btn) return;
-        btn.textContent = theme === 'dark' ? '☀️ Modo Claro' : '🌙 Modo Escuro';
-        btn.setAttribute('aria-label', theme === 'dark' ? 'Ativar modo claro' : 'Ativar modo escuro');
-    }
-
-    function updateMetaThemeColor(theme) {
-        let metaThemeColor = document.querySelector('meta[name="theme-color"]');
-        if (!metaThemeColor) {
-            metaThemeColor = document.createElement('meta');
-            metaThemeColor.name = 'theme-color';
-            document.head.appendChild(metaThemeColor);
-        }
-        metaThemeColor.content = theme === 'dark' ? '#0f1419' : '#1e3a5f';
-    }
 
     // --- Citações Nerd com Compartilhamento ---
     const quotes = [
@@ -228,67 +188,17 @@
         });
     }
 
-    // --- Lazy Loading para Imagens (fallback para browsers antigos) ---
-    function initLazyLoading() {
-        if ('loading' in HTMLImageElement.prototype) {
-            // Browser suporta loading="lazy" nativamente
-            const images = document.querySelectorAll('img[loading="lazy"]');
-            images.forEach(function(img) {
-                img.src = img.src;
-            });
-        } else {
-            // Fallback para browsers antigos
-            const script = document.createElement('script');
-            script.src = 'https://cdnjs.cloudflare.com/ajax/libs/lozad.js/1.16.0/lozad.min.js';
-            script.onload = function() {
-                const observer = lozad();
-                observer.observe();
-            };
-            document.head.appendChild(script);
-        }
-    }
-
-    // --- Preload de Fontes (se usar Google Fonts no futuro) ---
-    function preloadResources() {
-        // Exemplo para quando adicionar Google Fonts
-        // const link = document.createElement('link');
-        // link.rel = 'preload';
-        // link.as = 'style';
-        // link.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap';
-        // document.head.appendChild(link);
-    }
-
     // --- Inicialização ---
     document.addEventListener('DOMContentLoaded', function() {
-        initTheme();
         setRandomQuote();
         initTabs();
         initBackToTop();
         updateYear();
         initScrollAnimations();
-        initLazyLoading();
-        preloadResources();
-
-        const toggleBtn = document.getElementById('theme-toggle');
-        if (toggleBtn) {
-            toggleBtn.addEventListener('click', toggleTheme);
-        }
 
         const shuffleBtn = document.getElementById('shuffle-quote-btn');
         if (shuffleBtn) {
             shuffleBtn.addEventListener('click', setRandomQuote);
         }
     });
-
-    // --- Service Worker Registration (opcional, para PWA) ---
-    if ('serviceWorker' in navigator) {
-        // Descomentar quando tiver sw.js
-        // navigator.serviceWorker.register('/sw.js')
-        //     .then(function(registration) {
-        //         console.log('SW registrado:', registration.scope);
-        //     })
-        //     .catch(function(error) {
-        //         console.log('SW falhou:', error);
-        //     });
-    }
 })();

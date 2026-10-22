@@ -63,24 +63,23 @@
     }
     </script>
 
-    <link rel="stylesheet" href="css/style.css?v=3">
+    <script src="js/theme.js?v=1"></script>
+    <link rel="stylesheet" href="css/style.css?v=4">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
 </head>
 <body>
     <!-- Skip link para acessibilidade -->
     <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
 
-    <button id="theme-toggle" class="theme-toggle" aria-label="Alternar modo escuro">🌙 Modo Escuro</button>
-
     <header class="site-header">
         <div class="container">
+            <a href="https://blog.profevine.com.br" class="header-home-link" aria-label="Ir para o blog">blog.profevine.com.br</a>
             <h1>Professor Vine</h1>
-            <p class="subtitle">Educador | Computação & Idiomas</p>
-            <p class="website-url">profevine.com.br</p>
+            <p class="subtitle">Educador | Computação &amp; Idiomas</p>
         </div>
     </header>
 
-    <nav class="main-nav">
+    <nav class="main-nav" aria-label="Navegação principal">
         <div class="container">
             <ul>
                 <li><a href="https://blog.profevine.com.br" aria-label="Blog" target="_blank" rel="noopener">📝 Blog</a></li>
@@ -91,6 +90,10 @@
                 <li><a href="https://gitlab.com/lordehenry" aria-label="GitLab" target="_blank" rel="noopener"><img src="images/gitlab.svg" alt="" loading="lazy"> GitLab</a></li>
                 <li><a href="https://github.com/profevine" aria-label="GitHub" target="_blank" rel="noopener"><img src="images/git.svg" alt="" loading="lazy"> GitHub</a></li>
             </ul>
+            <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Alternar tema">
+                <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+                <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.99 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.78 9.79z"/></svg>
+            </button>
         </div>
     </nav>
 
@@ -119,7 +122,7 @@
                         </p>
                         <div class="quote-wrapper">
                             <div id="nerd-quote" class="nerd-quote"></div>
-                            <button id="shuffle-quote-btn" class="quote-share-btn" aria-label="Nova citação" title="Nova citação">⟳</button>
+                            <button id="shuffle-quote-btn" class="quote-share-btn" aria-label="Nova citação" title="Nova citação">↻</button>
                             <button id="share-quote-btn" class="quote-share-btn" aria-label="Compartilhar citação" title="Compartilhar citação">↗</button>
                         </div>
                     </div>
@@ -375,8 +378,8 @@
     </footer>
 
     <!-- Botão Voltar ao Topo -->
-    <button id="back-to-top" class="back-to-top" aria-label="Voltar ao topo" title="Voltar ao topo">⬆️</button>
+    <button id="back-to-top" class="back-to-top" aria-label="Voltar ao topo" title="Voltar ao topo">⬆</button>
 
-    <script src="js/main.js?v=2"></script>
+    <script src="js/main.js?v=3"></script>
 </body>
 </html>
