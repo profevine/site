@@ -14,6 +14,11 @@
         h2 { font-size: 1.15rem; margin: 28px 0 6px; }
         .data { color: var(--suave); margin: 0 0 20px; font-size: .95rem; }
         a { color: #2e7d32; }
+        .pix { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+        .pix img { background: #fff; padding: 8px; border-radius: 8px; border: 1px solid var(--borda); }
+        .pix div { flex: 1; min-width: 220px; }
+        .pix p { margin: 0 0 8px; }
+        .pix button { font: inherit; padding: 6px 14px; border-radius: 8px; border: 1px solid #2e7d32; background: #2e7d32; color: #fff; cursor: pointer; }
         @media (max-width: 760px) { main { margin: 0; border-radius: 0; border: 0; padding: 24px 20px; } }
     </style>
 </head>
@@ -41,8 +46,27 @@
     <h2>Compartilhamento e venda</h2>
     <p>Como nenhum dado é coletado, nada é compartilhado, vendido ou usado para publicidade.</p>
 
+    <h2>Apoie o projeto</h2>
+    <p>O bbbu é e continuará gratuito. Se ele facilitou o seu dia e você quiser agradecer ou ajudar a manter
+    o desenvolvimento de novas melhorias, qualquer valor por Pix é bem-vindo.</p>
+    <div class="pix">
+        <img src="pix.svg" width="200" height="200" alt="QR Code Pix para apoiar o bbbu">
+        <div>
+            <p>Escaneie o QR Code no app do seu banco e escolha o valor, ou use a chave Pix (e-mail):</p>
+            <p><code>lordehenry@gmail.com</code></p>
+            <button type="button" id="copiar-pix">Copiar Pix copia e cola</button>
+            <span id="copiado" class="data" hidden>Copiado!</span>
+        </div>
+    </div>
+
     <h2>Contato</h2>
     <p>Dúvidas: <a href="https://profevine.com.br">profevine.com.br</a>.</p>
 </main>
+<script>
+    document.getElementById('copiar-pix').addEventListener('click', async () => {
+        await navigator.clipboard.writeText('00020126420014br.gov.bcb.pix0120lordehenry@gmail.com5204000053039865802BR5914PROFESSOR VINE6013SANTO ANTONIO62080504BBBU63044FA6');
+        document.getElementById('copiado').hidden = false;
+    });
+</script>
 </body>
 </html>
