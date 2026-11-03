@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>bbbu - Better Blackboard Ultra | Professor Vine</title>
+    <meta name="description" content="Extensão gratuita para navegador com melhorias para o Blackboard Ultra do Senac, cada uma com seu botão de ligar e desligar.">
+    <link rel="icon" type="image/png" href="icone-32.png">
+    <style>
+        :root { color-scheme: light dark; --fundo: #f7f8fa; --texto: #1f2933; --suave: #5f6b7a; --cartao: #fff; --borda: #e3e7ec; }
+        @media (prefers-color-scheme: dark) { :root { --fundo: #11161d; --texto: #e6e9ee; --suave: #9aa5b4; --cartao: #1a212b; --borda: #2a3340; } }
+        body { margin: 0; background: var(--fundo); color: var(--texto); font: 17px/1.6 system-ui, -apple-system, "Segoe UI", sans-serif; }
+        main { max-width: 720px; margin: 40px auto; padding: 32px 36px; background: var(--cartao); border: 1px solid var(--borda); border-radius: 12px; }
+        h1 { font-size: 1.6rem; margin: 0 0 4px; }
+        h2 { font-size: 1.15rem; margin: 28px 0 6px; }
+        .data { color: var(--suave); margin: 0 0 20px; font-size: .95rem; }
+        a { color: #2e7d32; }
+        .topo { display: flex; gap: 18px; align-items: center; margin-bottom: 16px; }
+        .topo .data { margin: 0; }
+        .melhorias { padding-left: 1.2em; }
+        .melhorias li { margin-bottom: 8px; }
+        .versoes dt { font-weight: 600; }
+        .versoes dd { margin: 0 0 12px; }
+        .pix { display: flex; gap: 24px; align-items: center; flex-wrap: wrap; }
+        .pix img { background: #fff; padding: 8px; border-radius: 8px; border: 1px solid var(--borda); }
+        .pix div { flex: 1; min-width: 220px; }
+        .pix p { margin: 0 0 8px; }
+        .pix button { font: inherit; padding: 6px 14px; border-radius: 8px; border: 1px solid #2e7d32; background: #2e7d32; color: #fff; cursor: pointer; }
+        @media (max-width: 760px) { main { margin: 0; border-radius: 0; border: 0; padding: 24px 20px; } }
+    </style>
+</head>
+<body>
+<main>
+    <div class="topo">
+        <img src="icone-128.png" width="64" height="64" alt="">
+        <div>
+            <h1>bbbu - Better Blackboard Ultra</h1>
+            <p class="data">Extensão gratuita para navegador · versão 1.2</p>
+        </div>
+    </div>
+
+    <p>O bbbu deixa o Blackboard Ultra do Senac (senac.blackboard.com) mais prático para professores e alunos.
+    Cada melhoria tem seu próprio botão: clique no ícone da extensão para ligar ou desligar, e a mudança vale na hora,
+    sem recarregar a página.</p>
+
+    <h2>Melhorias</h2>
+    <ul class="melhorias">
+        <li><strong>Abrir turma em nova aba</strong>: clique do meio (ou Ctrl+clique) no nome da turma abre o curso
+        em outra aba, sem sair da lista de cursos.</li>
+        <li><strong>Ocultar bandeirinha de alertas</strong>: esconde o indicador "alunos com alertas" nos cartões de curso.</li>
+    </ul>
+
+    <h2>Como instalar</h2>
+    <p>Em breve na Chrome Web Store (a extensão está em revisão). Funciona no Chrome e em navegadores baseados
+    nele, como Edge, Vivaldi, Brave e Opera.</p>
+
+    <h2>Privacidade</h2>
+    <p>A extensão só funciona em senac.blackboard.com, não coleta nenhum dado e não se comunica com nenhum servidor.
+    Detalhes na <a href="privacidade/">política de privacidade</a>.</p>
+
+    <h2>Novidades</h2>
+    <dl class="versoes">
+        <dt>1.2 · 3 de novembro de 2026</dt>
+        <dd>Primeira versão pública, com as melhorias "Abrir turma em nova aba" e "Ocultar bandeirinha de alertas".</dd>
+    </dl>
+
+    <h2>Apoie o projeto</h2>
+    <p>O bbbu é e continuará gratuito. Se ele facilitou o seu dia e você quiser agradecer ou ajudar a manter
+    o desenvolvimento de novas melhorias, qualquer valor por Pix é bem-vindo.</p>
+    <div class="pix">
+        <img src="pix.svg" width="200" height="200" alt="QR Code Pix para apoiar o bbbu">
+        <div>
+            <p>Escaneie o QR Code no app do seu banco e escolha o valor, ou use a chave Pix (e-mail):</p>
+            <p><code>lordehenry@gmail.com</code></p>
+            <button type="button" id="copiar-pix">Copiar Pix copia e cola</button>
+            <span id="copiado" class="data" hidden>Copiado!</span>
+        </div>
+    </div>
+
+    <p class="data" style="margin-top: 28px">Projeto independente, sem vínculo com a Anthology/Blackboard ou com o Senac.
+    Dúvidas e sugestões: <a href="https://profevine.com.br">profevine.com.br</a>.</p>
+</main>
+<script>
+    document.getElementById('copiar-pix').addEventListener('click', async () => {
+        await navigator.clipboard.writeText('00020126420014br.gov.bcb.pix0120lordehenry@gmail.com5204000053039865802BR5914PROFESSOR VINE6013SANTO ANTONIO62080504BBBU63044FA6');
+        document.getElementById('copiado').hidden = false;
+    });
+</script>
+</body>
+</html>
