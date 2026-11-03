@@ -27,7 +27,20 @@
         .pix div { flex: 1; min-width: 220px; }
         .pix p { margin: 0 0 8px; }
         .pix button { font: inherit; padding: 6px 14px; border-radius: 8px; border: 1px solid var(--destaque); background: var(--destaque); color: #fff; cursor: pointer; }
-        @media (max-width: 760px) { main { margin: 0; border-radius: 0; border: 0; padding: 24px 20px; } }
+        figure { margin: 16px 0; }
+        figure img, .passo img { display: block; max-width: 100%; height: auto; border-radius: 10px; border: 1px solid var(--borda); }
+        figcaption { color: var(--suave); font-size: .9rem; margin-top: 6px; }
+        .galeria { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 16px 0; }
+        .galeria figure { margin: 0; }
+        .galeria img { width: 100%; }
+        .passos { counter-reset: passo; list-style: none; padding: 0; }
+        .passos > li { counter-increment: passo; position: relative; padding-left: 44px; margin-bottom: 22px; }
+        .passos > li::before { content: counter(passo); position: absolute; left: 0; top: 0; width: 30px; height: 30px; border-radius: 50%; background: linear-gradient(135deg, #7c3aed, #2563eb); color: #fff; font-weight: 700; display: grid; place-items: center; font-size: .95rem; }
+        .passos p { margin: 0 0 8px; }
+        .passo { display: flex; gap: 18px; align-items: flex-start; flex-wrap: wrap; }
+        .passo > div { flex: 1; min-width: 220px; }
+        kbd { font: .85em ui-monospace, monospace; padding: 1px 6px; border: 1px solid var(--borda); border-bottom-width: 2px; border-radius: 5px; background: var(--fundo); }
+        @media (max-width: 760px) { .galeria { grid-template-columns: 1fr; } main { margin: 0; border-radius: 0; border: 0; padding: 24px 20px; } }
     </style>
 </head>
 <body>
@@ -43,6 +56,17 @@
     <p>O bbbu deixa o Blackboard Ultra do Senac (senac.blackboard.com) mais prático para professores e alunos.
     Cada melhoria tem seu próprio botão: clique no ícone da extensão para ligar ou desligar, e a mudança vale na hora,
     sem recarregar a página.</p>
+
+
+    <figure>
+        <a href="img/captura-1.webp"><img src="img/captura-1.webp" width="1280" height="800" alt="Salas de Aula com o layout moderno no tema claro: cartões com a arte de cada UC e o destaque UC · Turma"></a>
+    </figure>
+    <div class="galeria">
+        <figure><a href="img/captura-2.webp"><img src="img/captura-2.webp" width="1280" height="800" loading="lazy" alt="Salas de Aula no tema escuro"></a>
+            <figcaption>Tema escuro, a um clique.</figcaption></figure>
+        <figure><a href="img/captura-3.webp"><img src="img/captura-3.webp" width="1280" height="800" loading="lazy" alt="Página de conteúdo da turma com a arte da UC07 no topo"></a>
+            <figcaption>A arte da UC também dentro da turma.</figcaption></figure>
+    </div>
 
     <h2>Melhorias</h2>
     <ul class="melhorias">
@@ -65,10 +89,43 @@
     <p>Não gostou de alguma? Desligue no ícone da extensão e o Blackboard volta a ser como era.</p>
 
     <h2>Como instalar</h2>
-    <p><a class="loja" href="https://chromewebstore.google.com/detail/jakbghpfikplblcojmnamjpkpkhkokaj">Instalar pela Chrome Web Store</a></p>
-    <p>Abra o link, clique em "Usar no Chrome" e pronto. Funciona no Chrome e em navegadores baseados nele,
-    como Edge, Vivaldi, Brave e Opera.</p>
-    <p class="data">A extensão está em revisão na loja; o link passa a funcionar assim que ela for aprovada.</p>
+    <ol class="passos">
+        <li><p>Abra a página da extensão na Chrome Web Store:</p>
+            <p><a class="loja" href="https://chromewebstore.google.com/detail/jakbghpfikplblcojmnamjpkpkhkokaj">Instalar pela Chrome Web Store</a></p>
+            <p class="data">A extensão está em revisão na loja; o link passa a funcionar assim que ela for aprovada.</p></li>
+        <li><p>Clique em <strong>"Usar no Chrome"</strong> e confirme em <strong>"Adicionar extensão"</strong>.
+            Funciona no Chrome e em navegadores baseados nele, como Edge, Vivaldi, Brave e Opera.</p></li>
+        <li><p><strong>Fixe o ícone</strong> para achar fácil: clique na peça de quebra-cabeça (Extensões) ao lado
+            da barra de endereço e no alfinete ao lado de "bbbu". O ícone roxo com um "b" passa a ficar sempre à vista.</p></li>
+        <li><p>Entre (ou recarregue) o Blackboard em <a href="https://senac.blackboard.com/ultra/course">senac.blackboard.com</a>.
+            Pronto: as melhorias já vêm ligadas.</p></li>
+    </ol>
+
+    <h2>Como usar</h2>
+    <ol class="passos">
+        <li><div class="passo">
+            <div><p><strong>Ligue e desligue cada melhoria.</strong> Clique no ícone do bbbu na barra do navegador:
+            abre uma lista com um botão para cada melhoria. A mudança vale na hora, sem recarregar a página, e fica
+            guardada para as próximas vezes.</p></div>
+            <img src="img/passo-popup.webp" width="260" height="453" loading="lazy" alt="Janela da extensão com um botão de liga/desliga para cada melhoria">
+        </div></li>
+        <li><div class="passo">
+            <div><p><strong>Ache a turma pelo número.</strong> Em Salas de Aula, cada cartão mostra a UC e a turma
+            em destaque (e, nas turmas de Desenvolvimento de Sistemas, a arte da UC). O nome completo aparece sem cortes.</p></div>
+            <img src="img/passo-cartao.webp" width="340" height="312" loading="lazy" alt="Cartão de turma com UC11 · Turma 11111B em destaque e a arte da UC">
+        </div></li>
+        <li><p><strong>Ordene as turmas.</strong> Logo acima da lista, o menu <strong>Ordenar</strong> troca a ordem
+            padrão pela data final da turma (mais próxima ou mais distante primeiro) ou pela data em que você foi
+            incluído (mais recente ou mais antiga primeiro). A data escolhida aparece no cartão.</p>
+            <img src="img/passo-ordenar.webp" width="470" height="84" loading="lazy" alt="Menu Ordenar, com a opção Padrão do Blackboard, acima da lista de turmas"></li>
+        <li><div class="passo">
+            <div><p><strong>Troque entre claro e escuro.</strong> No canto inferior direito de qualquer página do
+            Blackboard fica um botão redondo de sol/lua. Um clique troca o tema; o navegador lembra a sua escolha.</p></div>
+            <img src="img/passo-tema.webp" width="260" height="150" loading="lazy" alt="Botão de lua no canto inferior direito da página, destacado com um círculo">
+        </div></li>
+        <li><p><strong>Abra turmas em outra aba.</strong> Clique com o botão do meio do mouse (ou <kbd>Ctrl</kbd>+clique,
+            <kbd>⌘</kbd>+clique no Mac) no nome da turma: ela abre numa aba nova e a lista de cursos continua onde estava.</p></li>
+    </ol>
 
     <h2>Privacidade</h2>
     <p>A extensão só funciona em senac.blackboard.com, não coleta nenhum dado e não envia nada para fora do
