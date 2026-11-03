@@ -53,7 +53,8 @@
         </div>
     </div>
 
-    <p>O bbbu deixa o Blackboard Ultra do Senac (senac.blackboard.com) mais prático para professores e alunos.
+    <p>O bbbu deixa o Blackboard Ultra do Senac (senac.blackboard.com) mais prático, principalmente para quem é
+    tutor: acha a turma mais rápido, vê o que falta corrigir e corrige com menos cliques.
     Cada melhoria tem seu próprio botão: clique no ícone da extensão para ligar ou desligar, e a mudança vale na hora,
     sem recarregar a página.</p>
 
@@ -72,8 +73,18 @@
     <ul class="melhorias">
         <li><strong>Layout moderno (claro ou escuro)</strong>: redesenha o Blackboard com cartões arredondados, cores
         suaves e destaque para cada turma. Vem no tema claro; um botão de sol/lua no canto da página troca para o
-        escuro, azul-marinho. Na barra lateral, a sua foto fica maior e centralizada, com o nome inteiro. Vale também para as turmas no
-        formato antigo do Blackboard.</li>
+        escuro, azul-marinho. Na barra lateral, a sua foto fica maior e centralizada, com o nome inteiro. Dentro da
+        turma, as pastas do Conteúdo viram cartões compactos com a cor da UC, uma etiqueta colorida mostra se cada
+        item está visível, oculto ou com condições de liberação, e você escolhe ver as pastas em lista ou em grade de
+        duas colunas. Vale também para as turmas no formato antigo do Blackboard.</li>
+        <li><strong>Pendências nas turmas</strong>: mostra no cartão de cada turma quantos itens há para avaliar e
+        quantas mensagens não lidas, e um quadro "Para fazer" no topo de Salas de Aula, da Linha do Tempo e de
+        Mensagens.</li>
+        <li><strong>Correção mais rápida</strong>: no Centro de notas destaca o que falta avaliar e põe um botão
+        "Avaliar" que já abre o primeiro envio pendente; na correção, "Avaliar próximo" e atalhos de teclado para
+        passar de aluno e ir direto para a nota.</li>
+        <li><strong>Comentários prontos na correção</strong>: guarde os comentários que você escreve sempre e
+        insira com um clique nos comentários da correção.</li>
         <li><strong>Arte da UC na imagem da turma</strong>: nas turmas do Técnico em Desenvolvimento de Sistemas
         (UC01 a UC15), troca a imagem padrão por uma arte com o número, o nome e um ícone da UC, nos cartões e no
         topo da turma.</li>
@@ -128,6 +139,23 @@
             padrão pela data final da turma (mais próxima ou mais distante primeiro) ou pela data em que você foi
             incluído (mais recente ou mais antiga primeiro). A data escolhida aparece no cartão.</p>
             <img src="img/passo-ordenar.webp" width="470" height="84" loading="lazy" alt="Menu Ordenar, com a opção Padrão do Blackboard, acima da lista de turmas"></li>
+        <li><p><strong>Veja o que falta fazer.</strong> Cada cartão de turma ganha um selo com os itens para avaliar e
+            as mensagens não lidas, e o quadro <strong>Para fazer</strong>, no topo de Salas de Aula, da Linha do Tempo
+            e de Mensagens, junta tudo num lugar só. Clique em "a avaliar" para ir ao Centro de notas da turma, ou nas
+            mensagens para abri-las.</p></li>
+        <li><p><strong>Corrija em sequência.</strong> No Centro de notas da turma, as atividades com envios pendentes
+            ficam destacadas, com um botão <strong>Avaliar</strong> que abre o primeiro aluno a corrigir. Na correção,
+            <kbd>Alt</kbd>+<kbd>→</kbd> e <kbd>Alt</kbd>+<kbd>←</kbd> passam para o próximo aluno ou o anterior, e
+            <kbd>Alt</kbd>+<kbd>N</kbd> leva direto para o campo da nota. Na lista de envios, <strong>Avaliar
+            próximo →</strong> abre o próximo pendente.</p></li>
+        <li><p><strong>Guarde os comentários que você repete.</strong> Acima da caixa de comentários da correção
+            aparecem os seus comentários prontos: um clique insere o texto (e você ainda pode editar antes de salvar).
+            Escreva um comentário e use <strong>+ Guardar este texto</strong> para acrescentá-lo à lista; o × apaga.</p></li>
+        <li><p><strong>Escolha lista ou grade dentro da turma.</strong> Em Conteúdo, acima da primeira pasta, os
+            botões <strong>Lista</strong> e <strong>Grade</strong> trocam entre uma pasta por linha e duas colunas
+            (em telas largas). A pasta aberta ocupa a largura toda, e o navegador lembra a sua escolha. A etiqueta de
+            cada pasta mostra de relance o que o aluno vê: verde para visível, âmbar para condições de liberação,
+            cinza para oculto.</p></li>
         <li><div class="passo">
             <div><p><strong>Troque entre claro e escuro.</strong> No canto inferior direito de qualquer página do
             Blackboard fica um botão redondo de sol/lua. Um clique troca o tema; o navegador lembra a sua escolha.
@@ -140,7 +168,7 @@
 
     <h2>Privacidade</h2>
     <p>A extensão só funciona em senac.blackboard.com, não coleta nenhum dado e não envia nada para fora do
-    seu navegador. Detalhes na <a href="privacidade/">política de privacidade</a>.</p>
+    seu navegador. O que ela mostra (datas, pendências) vem do próprio Blackboard, com a sua sessão. Detalhes na <a href="privacidade/">política de privacidade</a>.</p>
 
     <h2>Novidades</h2>
     <dl class="versoes">
@@ -148,14 +176,16 @@
         <dd>Layout moderno com tema claro e escuro, artes das UCs nas turmas de Desenvolvimento de Sistemas,
         destaque "UC · Turma" nos cartões, menu para ordenar as turmas por data, foto e nome inteiro na barra lateral, menu
         de melhorias na própria barra, modo escuro para o visual
-        original e ícone novo.</dd>
+        original e ícone novo. Para tutores: pendências nas turmas (itens para avaliar e mensagens não lidas),
+        correção mais rápida com atalhos de teclado, comentários prontos na correção e, dentro da turma, pastas em
+        cartões com a cor da UC, etiquetas de visibilidade e a escolha entre lista e grade.</dd>
         <dt>1.2 · 3 de novembro de 2026</dt>
         <dd>Primeira versão pública, com as melhorias "Abrir turma em nova aba" e "Ocultar bandeirinha de alertas".</dd>
     </dl>
 
     <h2>Apoie o projeto</h2>
-    <p>O bbbu é e continuará gratuito. Se ele facilitou o seu dia e você quiser agradecer ou ajudar a manter
-    o desenvolvimento de novas melhorias, qualquer valor por Pix é bem-vindo.</p>
+    <p>O bbbu é e continuará gratuito. Se o meu trabalho ajudou o seu trabalho, considere me pagar um
+    cafezinho 😉</p>
     <div class="pix">
         <img src="pix.svg" width="200" height="200" alt="QR Code Pix para apoiar o bbbu">
         <div>

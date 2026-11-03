@@ -36,16 +36,24 @@
     de conteúdo das páginas ou de uso para o autor ou para terceiros. Ela não se comunica com nenhum servidor
     além do próprio Blackboard.</p>
     <p>Algumas melhorias leem, no seu navegador, informações que o Blackboard já mostra para você (como o código
-    das turmas e as datas de término e de inclusão), só para exibi-las de outro jeito na tela. Essas informações
-    não são guardadas nem enviadas para lugar nenhum.</p>
+    das turmas, as datas de término e de inclusão, e quantos itens há para avaliar e quantas mensagens não lidas
+    em cada turma), só para exibi-las de outro jeito na tela. Essas informações não são enviadas para lugar nenhum.
+    As contagens de pendências ficam por até 5 minutos na memória da aba (veja abaixo), para a página não pedir
+    tudo de novo a cada clique.</p>
 
     <h2>O que fica guardado</h2>
     <p>Só as suas preferências, no próprio navegador:</p>
     <ul>
         <li>quais melhorias estão ligadas ou desligadas (<code>chrome.storage.sync</code>; se a sincronização da sua
         conta estiver ativa, o navegador pode levar essa escolha para os seus outros dispositivos);</li>
-        <li>a ordenação escolhida em Salas de Aula e o tema (claro ou escuro), no armazenamento local da página
-        senac.blackboard.com (<code>localStorage</code>).</li>
+        <li>os seus comentários prontos da correção, também em <code>chrome.storage.sync</code> (vão junto com a
+        sua conta do navegador, se a sincronização estiver ativa);</li>
+        <li>a ordenação escolhida em Salas de Aula, o tema (claro ou escuro) e a escolha entre lista e grade no
+        Conteúdo da turma, no armazenamento local da página senac.blackboard.com (<code>localStorage</code>);</li>
+        <li>por até 5 minutos, as contagens de pendências por turma junto com o identificador do seu usuário no
+        Blackboard (para não mostrar a outro tutor que use a mesma aba), e duas marcas da correção ("abrir o próximo
+        envio" e "já viu o aviso dos atalhos"), na memória da aba (<code>sessionStorage</code>), que o navegador apaga
+        ao fechar a aba; "Fazer logoff" também apaga as contagens.</li>
     </ul>
     <p>O autor da extensão não tem acesso a nada disso.</p>
 
@@ -61,8 +69,18 @@
     <ul>
         <li><strong>Layout moderno (claro ou escuro)</strong>: muda, por CSS, as cores e o formato da página. Para
         acertar as cores de partes não previstas, observa a cor de fundo dos elementos da página. Guarda o tema
-        escolhido no botão de sol/lua. Também redesenha a barra lateral (foto e nome do perfil) e as turmas no
-        formato antigo.</li>
+        escolhido no botão de sol/lua. Também redesenha a barra lateral (foto e nome do perfil), a página da turma
+        (lê o texto "Visível para alunos"/"Condições de liberação" de cada item para colorir a etiqueta e guarda a
+        escolha entre lista e grade) e as turmas no formato antigo.</li>
+        <li><strong>Pendências nas turmas</strong>: pede ao próprio Blackboard, com a sua sessão, o resumo de
+        atividade das suas turmas (o mesmo do painel "Atividade dos cursos" da Linha do Tempo) e o identificador do
+        seu usuário, só para mostrar as contagens nos cartões e no quadro "Para fazer".</li>
+        <li><strong>Correção mais rápida</strong>: observa o Centro de notas e a tela de correção para destacar o que
+        falta avaliar e clicar, a seu pedido, nos botões do próprio Blackboard (abrir envio, próximo aluno, campo da
+        nota). Não muda nem salva nota sozinha.</li>
+        <li><strong>Comentários prontos na correção</strong>: acrescenta os botões acima das caixas de comentário da
+        correção e insere o texto escolhido nelas. Guarda só os comentários que você mandou guardar; nada é salvo
+        no Blackboard sem você clicar em "Salvar".</li>
         <li><strong>Arte da UC na imagem da turma</strong>: lê o código da turma mostrado na página (por exemplo
         RS-20252-TDS-M1-UC11-660012345A) para escolher qual arte mostrar no lugar da imagem.</li>
         <li><strong>Destacar UC e turma</strong>: lê o mesmo código da turma para mostrar "UC11 · Turma 12345A" no cartão.</li>
@@ -83,8 +101,8 @@
     <p>Como nenhum dado é coletado, nada é compartilhado, vendido ou usado para publicidade.</p>
 
     <h2>Apoie o projeto</h2>
-    <p>O bbbu é e continuará gratuito. Se ele facilitou o seu dia e você quiser agradecer ou ajudar a manter
-    o desenvolvimento de novas melhorias, qualquer valor por Pix é bem-vindo.</p>
+    <p>O bbbu é e continuará gratuito. Se o meu trabalho ajudou o seu trabalho, considere me pagar um
+    cafezinho 😉</p>
     <div class="pix">
         <img src="../pix.svg" width="200" height="200" alt="QR Code Pix para apoiar o bbbu">
         <div>
