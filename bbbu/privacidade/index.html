@@ -26,10 +26,11 @@
 <body>
 <main>
     <h1>bbbu - Better Blackboard Ultra</h1>
-    <p class="data">Política de privacidade · atualizada em 3 de novembro de 2026 (versão 1.3)</p>
+    <p class="data">Política de privacidade · atualizada em 6 de novembro de 2026 (versão 1.4)</p>
 
-    <p>O bbbu é uma extensão gratuita para navegador que acrescenta melhorias de uso ao Blackboard Ultra do Senac
-    (senac.blackboard.com). É um projeto independente, sem vínculo com a Anthology/Blackboard ou com o Senac.</p>
+    <p>O bbbu é uma extensão gratuita para navegador que acrescenta melhorias de uso ao Blackboard Ultra
+    (endereços *.blackboard.com). É um projeto independente, sem vínculo com a Anthology/Blackboard nem com nenhuma
+    instituição de ensino.</p>
 
     <h2>Dados coletados</h2>
     <p>Nenhum. A extensão não coleta, não registra e não envia nenhuma informação pessoal, de navegação,
@@ -49,7 +50,7 @@
         <li>os seus comentários prontos da correção, também em <code>chrome.storage.sync</code> (vão junto com a
         sua conta do navegador, se a sincronização estiver ativa);</li>
         <li>a ordenação escolhida em Salas de Aula, o tema (claro ou escuro) e a escolha entre lista e grade no
-        Conteúdo da turma, no armazenamento local da página senac.blackboard.com (<code>localStorage</code>);</li>
+        Conteúdo da turma, no armazenamento local da página do Blackboard (<code>*.blackboard.com</code>, <code>localStorage</code>);</li>
         <li>por até 5 minutos, as contagens de pendências por turma junto com o identificador do seu usuário no
         Blackboard (para não mostrar a outro tutor que use a mesma aba), e duas marcas da correção ("abrir o próximo
         envio" e "já viu o aviso dos atalhos"), na memória da aba (<code>sessionStorage</code>), que o navegador apaga
@@ -58,14 +59,14 @@
     <p>O autor da extensão não tem acesso a nada disso.</p>
 
     <h2>Onde a extensão funciona</h2>
-    <p>Somente nas páginas <code>https://senac.blackboard.com/ultra/*</code>, onde ajusta a interface no próprio
+    <p>Somente nas páginas <code>https://*.blackboard.com/ultra/*</code> (o Blackboard Ultra de cada instituição), onde ajusta a interface no próprio
     navegador. Nas turmas no formato antigo, que o Blackboard mostra dentro dessas páginas (um quadro com
-    endereço <code>senac.blackboard.com/webapps/...</code>), o layout moderno também aplica as suas cores e formas.
+    endereço <code>*.blackboard.com/webapps/...</code>), o layout moderno também aplica as suas cores e formas.
     Ela não lê nem altera nenhum outro site. As artes das UCs são imagens que vêm dentro da própria
     extensão; nada é baixado de outro lugar.</p>
 
     <h2>O que cada melhoria faz na página</h2>
-    <p>Versão 1.3. Nenhuma melhoria guarda ou envia o conteúdo da página.</p>
+    <p>Versão 1.4. Nenhuma melhoria guarda ou envia o conteúdo da página.</p>
     <ul>
         <li><strong>Layout moderno (claro ou escuro)</strong>: muda, por CSS, as cores e o formato da página. Para
         acertar as cores de partes não previstas, observa a cor de fundo dos elementos da página. Guarda o tema
